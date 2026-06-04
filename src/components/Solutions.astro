@@ -1,0 +1,35 @@
+---
+const cards = [
+  { emoji: '🛍️', bg: 'bg-gradient-to-br from-[#009944] to-[#007733]', badge: 'Comercios', title: 'Comercios', desc: 'Punto de venta ágil, control de productos, inventario y clientes frecuentes.' },
+  { emoji: '🍽️', bg: 'bg-gradient-to-br from-[#00C060] to-[#00A650]', badge: 'Gastronomía', title: 'Gastronomía', desc: 'Gestiona mesas, comandas, cocina, delivery y más. Todo integrado.' },
+  { emoji: '⚡', bg: 'bg-gradient-to-br from-[#00A650] to-[#008040]', badge: 'POS Rápido', title: 'POS Rápido', desc: 'Menos de 3 clics por venta.' },
+  { emoji: '🛠️', bg: 'bg-gradient-to-br from-[#1A202C] to-[#2D3748]', badge: 'Desarrollo a medida', title: 'Desarrollo a medida', desc: '¿Tu negocio tiene necesidades especiales? Desarrollamos una solución personalizada para ti.', special: true },
+];
+---
+
+<section class="py-[76px]" id="soluciones">
+  <div class="max-w-[1180px] mx-auto px-6">
+    <span class="block text-center text-xs font-bold tracking-[0.14em] uppercase text-primary mb-2" data-animate="fade-up">Para todo tipo de comercio</span>
+    <h2 class="text-center font-bold text-[clamp(1.7rem,3.2vw,2.4rem)] leading-tight mb-1.5 text-dark2" data-animate="fade-up">Comercialo se adapta<br>a tu tipo de negocio</h2>
+    <p class="text-center text-gray text-base max-w-[580px] mx-auto mb-11 leading-relaxed" data-animate="fade-up">Una solución completa para cada tipo de comercio peruano.</p>
+    <div data-animate="stagger" data-stagger-target=".giro-card">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        {cards.map((card) => (
+          <div class={`giro-card rounded-xl overflow-hidden shadow-[0_1px_4px_rgba(0,0,0,0.07)] border transition-all duration-[220ms] hover:-translate-y-1 hover:shadow-[0_8px_28px_rgba(0,0,0,0.09)] ${card.special ? 'border-2 border-dashed border-primary bg-primary-light' : 'border-border'}`}>
+            <div class={`h-[130px] flex items-center justify-center text-[2.8rem] relative ${card.bg}`}>
+              <span class="absolute top-2.5 left-2.5 bg-white/22 backdrop-blur-sm rounded-full px-2.5 py-[3px] text-[0.68rem] font-bold text-white">{card.badge}</span>
+              {card.emoji}
+            </div>
+            <div class={`p-[18px]_px-5 py-[18px] px-5 ${card.special ? 'bg-transparent' : 'bg-white'}`}>
+              <h3 class="text-[0.95rem] font-bold mb-1 text-dark2">{card.title}</h3>
+              <p class="text-gray text-[0.8rem] leading-snug mb-2.5">{card.desc}</p>
+              <a href={card.special ? '#demo' : '#'} class="text-[0.78rem] font-bold text-primary flex items-center gap-1 no-underline hover:underline">
+                {card.special ? 'Hablar con un experto' : 'Conocer más'} →
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

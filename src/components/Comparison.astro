@@ -1,0 +1,111 @@
+---
+const rows = [
+  {
+    feature: 'Facturación SUNAT',
+    excel: { status: 'negative', text: 'Manual' },
+    trad: { status: 'warning', text: 'Complejo' },
+    com: { status: 'positive', text: 'Automático' }
+  },
+  {
+    feature: 'Inventario en tiempo real',
+    excel: { status: 'negative', text: 'No tiene' },
+    trad: { status: 'warning', text: 'Parcial' },
+    com: { status: 'positive', text: '100% en vivo' }
+  },
+  {
+    feature: 'Acceso desde cualquier lugar',
+    excel: { status: 'negative', text: 'Solo PC local' },
+    trad: { status: 'warning', text: 'Licencia única' },
+    com: { status: 'positive', text: 'Nube 24/7' }
+  },
+  {
+    feature: 'Soporte en Perú',
+    excel: { status: 'negative', text: 'No tiene' },
+    trad: { status: 'warning', text: 'Limitado' },
+    com: { status: 'positive', text: 'Local 24/7' }
+  },
+  {
+    feature: 'Multiusuario y Roles',
+    excel: { status: 'negative', text: 'No disponible' },
+    trad: { status: 'warning', text: 'Costo extra' },
+    com: { status: 'positive', text: 'Ilimitado' }
+  },
+  {
+    feature: 'Implementación rápida',
+    excel: { status: 'negative', text: 'N/A' },
+    trad: { status: 'warning', text: 'Semanas' },
+    com: { status: 'positive', text: '48 horas' }
+  },
+];
+---
+
+<section class="py-[76px] bg-white relative overflow-hidden" id="comparativa">
+  <div class="max-w-[1180px] mx-auto px-6">
+    <span class="block text-center text-xs font-bold tracking-[0.14em] uppercase text-primary mb-2" data-animate="fade-up">¿Por qué Comercialo?</span>
+    <h2 class="text-center font-bold text-[clamp(1.7rem,3.2vw,2.4rem)] leading-tight mb-1.5 text-dark2" data-animate="fade-up">La decisión inteligente<br>para tu negocio</h2>
+    <p class="text-center text-gray text-base max-w-[580px] mx-auto mb-14 leading-relaxed" data-animate="fade-up">Compara y decide con datos, no con promesas.</p>
+    
+    <div class="overflow-x-auto pb-4 rounded-2xl" data-animate="fade-up">
+      <table class="w-full border-separate border-spacing-0 bg-white rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.04)] border border-border table-fixed min-w-[760px]">
+        <thead>
+          <tr>
+            <th class="w-[30%] pt-7 pb-4 px-6 text-left bg-slate-50/80 border-b border-border text-[0.82rem] font-bold text-slate-600 tracking-wider rounded-tl-2xl align-bottom">
+              Funcionalidad
+            </th>
+            <th class="w-[20%] pt-7 pb-4 px-4 text-center bg-slate-50/80 border-b border-border text-[0.82rem] font-bold text-slate-600 tracking-wider align-bottom">
+              Excel
+            </th>
+            <th class="w-[25%] pt-7 pb-4 px-4 text-center bg-slate-50/80 border-b border-border text-[0.82rem] font-bold text-slate-600 tracking-wider align-bottom">
+              Sistema Tradicional
+            </th>
+            <th class="w-[25%] pt-7 pb-4 px-4 text-center bg-primary border-b border-primary/20 text-white text-[0.88rem] font-extrabold tracking-wider rounded-tr-2xl relative shadow-[0_-4px_16px_rgba(0,166,80,0.15)] align-bottom">
+              <span class="absolute top-1.5 left-1/2 -translate-x-1/2 bg-yellow text-dark2 font-extrabold text-[0.62rem] uppercase tracking-widest px-3 py-1 rounded-full shadow-md border border-yellow/20 select-none whitespace-nowrap">
+                ✦ RECOMENDADO ✦
+              </span>
+              Comercialo
+            </th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-slate-100">
+          {rows.map((row, index) => {
+            const isLast = index === rows.length - 1;
+            return (
+              <tr class="hover:bg-slate-50/30 transition-colors group">
+                <td class={`py-4.5 px-6 text-left font-semibold text-slate-700 text-[0.88rem] border-b ${isLast ? 'border-b-0 rounded-bl-2xl' : 'border-border/60'}`}>
+                  {row.feature}
+                </td>
+                
+                <td class={`py-4.5 px-4 text-center border-b ${isLast ? 'border-b-0' : 'border-border/60'}`}>
+                  <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[0.78rem] font-semibold bg-rose-50 text-rose-600 border border-rose-100/50">
+                    <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                    {row.excel.text}
+                  </span>
+                </td>
+                
+                <td class={`py-4.5 px-4 text-center border-b ${isLast ? 'border-b-0' : 'border-border/60'}`}>
+                  <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[0.78rem] font-semibold bg-amber-50 text-amber-700 border border-amber-100/50">
+                    <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                    </svg>
+                    {row.trad.text}
+                  </span>
+                </td>
+                
+                <td class={`py-4.5 px-4 text-center bg-primary-light/20 border-x border-primary/10 border-b ${isLast ? 'border-b-0 rounded-br-2xl' : 'border-primary/10'} shadow-[inset_1px_0_0_rgba(0,166,80,0.05),inset_-1px_0_0_rgba(0,166,80,0.05)]`}>
+                  <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-[0.78rem] font-extrabold bg-primary-light text-primary-dark border border-primary/20 shadow-sm">
+                    <svg class="w-3.5 h-3.5 shrink-0 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    {row.com.text}
+                  </span>
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>

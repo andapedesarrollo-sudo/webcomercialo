@@ -1,0 +1,29 @@
+---
+const faqs = [
+  { q: '¿Qué es la facturación electrónica en Perú?', a: 'Es el sistema digital avalado por SUNAT para emitir comprobantes de pago. Comercialo la integra automáticamente para que cumplas sin trámites manuales.' },
+  { q: '¿Cuánto cuesta emitir una boleta electrónica?', a: 'Nuestros planes incluyen emisión ilimitada de boletas. Solo pagas una suscripción, sin costos ocultos por comprobante.' },
+  { q: '¿Qué necesito para registrar mi comercio?', a: 'Para registrar tu empresa es necesario contar con un RUC 10 con negocio o RUC 20 activo, además tener acceso a su clave sol SUNAT.' },
+  { q: 'Si no tengo RUC puedo usar su sistema', a: 'Por supuesto. El sistema permite tener un control mas claro de tu negocio.' },
+  { q: '¿El sistema para restaurantes incluye comandas?', a: 'Sí, las comandas viajan a la pantalla de cocina en tiempo real, reduciendo errores y tiempos de servicio.' },
+  { q: '¿En cuánto tiempo puedo estar operativo?', a: 'La implementación estándar toma 48 horas. Tu negocio no para — configuramos el sistema sin interrumpir tu operación actual.' },
+];
+---
+
+<section class="py-[76px]" id="faq">
+  <div class="max-w-[840px] mx-auto px-6">
+    <span class="block text-center text-xs font-bold tracking-[0.14em] uppercase text-primary mb-2" data-animate="fade-up">Resolvemos tus dudas</span>
+    <h2 class="text-center font-bold text-[clamp(1.7rem,3.2vw,2.4rem)] leading-tight mb-11 text-dark2" data-animate="fade-up">Preguntas frecuentes</h2>
+    <div>
+      {faqs.map((faq) => (
+        <div data-faq class="faq-item bg-white rounded-xl px-6 py-5 mb-2.5 shadow-[0_1px_4px_rgba(0,0,0,0.07)] border border-border border-l-4 border-l-primary" data-animate="fade-up">
+          <div class="font-bold text-[0.95rem] text-dark2 mb-0 flex items-center justify-between gap-3" data-faq-q>
+            <span>{faq.q}</span>
+          </div>
+          <div class="text-gray text-[0.87rem] leading-relaxed" data-faq-a>
+            <div class="pt-1.5">{faq.a}</div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,28 @@
+---
+const problems = [
+  { emoji: '🚫', title: 'Multas SUNAT', desc: 'Facturación 100% automática y cumplida, sin riesgo de sanciones.' },
+  { emoji: '📉', title: 'Pérdidas de inventario', desc: 'Control de stock en tiempo real que elimina fugas y mermas.' },
+  { emoji: '📋', title: 'Procesos manuales', desc: 'Automatización que ahorra hasta 15 horas semanales de trabajo repetitivo.' },
+  { emoji: '📊', title: 'Reportes confusos', desc: 'Dashboard gerencial visual con KPIs claros al instante.' },
+  { emoji: '📵', title: 'Sin control remoto', desc: 'Accede a tu negocio desde cualquier lugar, 24/7 en la nube.' },
+  { emoji: '⏳', title: 'Cierres lentos', desc: 'Cierra caja en minutos, conciliación automática de ventas.' },
+];
+---
+
+<section class="py-[76px] bg-light">
+  <div class="max-w-[1180px] mx-auto px-6">
+    <span class="block text-center text-xs font-bold tracking-[0.14em] uppercase text-primary mb-2" data-animate="fade-up">¿Te suena familiar?</span>
+    <h2 class="text-center font-bold text-[clamp(1.7rem,3.2vw,2.4rem)] leading-tight mb-1.5 text-dark2" data-animate="fade-up">Deja atrás los dolores<br>operativos</h2>
+    <p class="text-center text-gray text-base max-w-[580px] mx-auto mb-11 leading-relaxed" data-animate="fade-up">Comercialo elimina los problemas que frenan el crecimiento de tu negocio.</p>
+    <div data-animate="stagger" data-stagger-target=".prob-card">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        {problems.map((p) => (
+          <div class="prob-card bg-white p-6 rounded-xl shadow-[0_1px_4px_rgba(0,0,0,0.07)] border border-border border-l-4 border-l-primary transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_8px_28px_rgba(0,0,0,0.09)]">
+            <h3 class="text-[0.95rem] font-bold flex items-center gap-2 mb-1.5 text-dark2">{p.emoji} {p.title}</h3>
+            <p class="text-gray text-[0.88rem] leading-relaxed">{p.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

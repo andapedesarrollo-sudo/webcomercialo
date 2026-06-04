@@ -1,0 +1,30 @@
+---
+const testimonials = [
+  { stars: '★★★★★', metric: '45 min → 8 min', quote: 'Reducimos el tiempo de cierre de caja de 45 a 8 minutos. Las comandas a cocina nos cambiaron la vida.', name: 'Juan Pérez', role: 'La Cevichería Arequipeña' },
+  { stars: '★★★★★', metric: '-40% mermas', quote: 'Ahora sé exactamente qué producto rota y cuál no. Redujimos las pérdidas en un 40%.', name: 'María Gómez', role: 'Minimarket El Sol' },
+  { stars: '★★★★★', metric: '500 boletas/mes', quote: 'Emitimos 500 boletas electrónicas al mes sin un solo error ante SUNAT. El soporte es increíble.', name: 'Carlos Ruiz', role: 'Consultora CR' },
+];
+---
+
+<section class="py-[76px] bg-light" id="casos">
+  <div class="max-w-[1180px] mx-auto px-6">
+    <span class="block text-center text-xs font-bold tracking-[0.14em] uppercase text-primary mb-2" data-animate="fade-up">Casos de éxito</span>
+    <h2 class="text-center font-bold text-[clamp(1.7rem,3.2vw,2.4rem)] leading-tight mb-11 text-dark2" data-animate="fade-up">Negocios que ya<br>están creciendo</h2>
+    <div data-animate="stagger" data-stagger-target=".testi-card">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        {testimonials.map((t) => (
+          <div class="testi-card relative overflow-hidden bg-white p-6 rounded-xl shadow-[0_1px_4px_rgba(0,0,0,0.07)] border border-border transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_8px_28px_rgba(0,0,0,0.09)]">
+            <div class="text-amber-400 text-sm tracking-[2px] mb-2">{t.stars}</div>
+            <div class="text-2xl font-extrabold text-primary my-2 leading-none">{t.metric}</div>
+            <blockquote class="text-gray text-[0.87rem] italic mb-3.5 leading-relaxed">"{t.quote}"</blockquote>
+            <div>
+              <strong class="text-[0.88rem] block text-dark2">{t.name}</strong>
+              <span class="text-[0.75rem] text-gray">{t.role}</span>
+            </div>
+            <span class="absolute -top-2.5 right-4 text-[5rem] text-primary-light font-extrabold leading-none pointer-events-none select-none">"</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

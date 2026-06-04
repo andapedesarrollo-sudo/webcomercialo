@@ -1,0 +1,32 @@
+---
+const modules = [
+  { icon: '🧾', title: 'Facturación Electrónica', desc: 'Integración directa SUNAT, boletas, facturas y notas de crédito. 100% automático.' },
+  { icon: '🛒', title: 'POS Rápido', desc: 'Menos de 3 clics por venta.' },
+  { icon: '📦', title: 'Inventario Inteligente', desc: 'Alertas de stock bajo, control por almacén y trazabilidad completa.' },
+  { icon: '📋', title: 'Compras y Proveedores', desc: 'Órdenes de compra, recepción automática y control de costos.' },
+  { icon: '💰', title: 'Caja y Cierres', desc: 'Arqueo diario, control de ingresos/egresos. Cierra en minutos.' },
+  { icon: '📊', title: 'Dashboard Gerencial', desc: 'KPIs visuales: utilidad, rotación, ticket promedio. Decisiones con datos.' },
+  { icon: '🔐', title: 'Multiusuario y Roles', desc: 'Acceso segmentado para cajeros, administradores y dueños.' },
+  { icon: '🍽️', title: 'Módulo Restaurante', desc: 'Comandas digitales, gestión de mesas y pantalla de cocina en tiempo real.' },
+  { icon: '🚀', title: 'Desarrollo a Medida', desc: 'ERPs personalizados, integraciones API y dashboards avanzados para tu negocio.' },
+];
+---
+
+<section class="py-[76px] bg-light" id="modulos">
+  <div class="max-w-[1180px] mx-auto px-6">
+    <span class="block text-center text-xs font-bold tracking-[0.14em] uppercase text-primary mb-2" data-animate="fade-up">Plataforma completa</span>
+    <h2 class="text-center font-bold text-[clamp(1.7rem,3.2vw,2.4rem)] leading-tight mb-1.5 text-dark2" data-animate="fade-up">Todo lo que necesitas<br>en un solo lugar</h2>
+    <p class="text-center text-gray text-base max-w-[580px] mx-auto mb-11 leading-relaxed" data-animate="fade-up">Módulos diseñados para trabajar juntos y darte control total de tu negocio.</p>
+    <div data-animate="stagger" data-stagger-target=".mod-card">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        {modules.map((m) => (
+          <div class="mod-card bg-white p-6 rounded-xl shadow-[0_1px_4px_rgba(0,0,0,0.07)] border border-border transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_8px_28px_rgba(0,0,0,0.09)] hover:border-primary/18">
+            <div class="w-11 h-11 bg-primary-light rounded-[10px] flex items-center justify-center text-xl mb-3.5">{m.icon}</div>
+            <h3 class="text-[1.05rem] font-bold mb-1 text-dark2">{m.title}</h3>
+            <p class="text-gray text-[0.88rem] leading-relaxed">{m.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

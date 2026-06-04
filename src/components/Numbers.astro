@@ -1,0 +1,24 @@
+---
+const stats = [
+  { prefix: '+', target: 30, suffix: '%', title: 'Más ventas', desc: 'Con reportes y datos en tiempo real' },
+  { prefix: '-', target: 95, suffix: '%', title: 'Menos mermas', desc: 'Control de inventario inteligente' },
+  { prefix: '', target: 48, suffix: 'h', title: 'Implementación', desc: 'Sin detener tu operación' },
+  { prefix: '', target: 24, suffix: '/7', title: 'Soporte local', desc: 'Equipo peruano siempre disponible' },
+];
+---
+
+<section class="py-[76px]">
+  <div class="max-w-[1180px] mx-auto px-6">
+    <span class="block text-center text-xs font-bold tracking-[0.14em] uppercase text-primary mb-2" data-animate="fade-up">Resultados reales</span>
+    <h2 class="text-center font-bold text-[clamp(1.7rem,3.2vw,2.4rem)] leading-tight mb-11 text-dark2" data-animate="fade-up">Números que hablan<br>por sí solos</h2>
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-5" data-animate="stagger" data-stagger-target=".num-card">
+      {stats.map((s) => (
+        <div class="num-card bg-white p-6 rounded-xl shadow-[0_1px_4px_rgba(0,0,0,0.07)] border border-border text-center transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_8px_28px_rgba(0,0,0,0.09)]">
+          <div class="text-[2.4rem] font-extrabold text-primary leading-none mb-1.5" data-animate="counter" data-target={String(s.target)} data-prefix={s.prefix} data-suffix={s.suffix}>0</div>
+          <h3 class="text-[0.9rem] font-bold mb-1 text-dark2">{s.title}</h3>
+          <p class="text-gray text-[0.8rem]">{s.desc}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
