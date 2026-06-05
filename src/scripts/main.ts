@@ -14,7 +14,11 @@ document.addEventListener('astro:page-load', () => {
   if (initialized) {
     reinit();
     initAnchorLinks();
-    lenis.scrollTo(0, { immediate: true });
+    if (lenis) {
+      lenis.scrollTo(0, { immediate: true });
+    } else {
+      window.scrollTo(0, 0);
+    }
   } else {
     run();
   }
@@ -35,7 +39,12 @@ function initAnchorLinks() {
       const target = document.querySelector<HTMLElement>(href);
       if (!target) return;
       e.preventDefault();
-      lenis.scrollTo(target, { offset: -68 });
+      if (lenis) {
+        lenis.scrollTo(target, { offset: -68 });
+      } else {
+        const top = target.getBoundingClientRect().top + window.scrollY - 68;
+        window.scrollTo({ top, behavior: 'smooth' });
+      }
     });
   });
 }

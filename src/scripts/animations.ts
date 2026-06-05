@@ -69,7 +69,7 @@ function initFadeUp() {
       clearProps: 'transition,transform,opacity',
       scrollTrigger: {
         trigger: el,
-        start: 'top 85%',
+        start: 'top 92%',
         toggleActions: 'play none none none',
       },
     });
@@ -93,7 +93,7 @@ function initStagger() {
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: container,
-        start: 'top 85%',
+        start: 'top 92%',
         toggleActions: 'play none none none',
       },
     });
@@ -127,7 +127,7 @@ function initCounters() {
       ease: 'power2.out',
       scrollTrigger: {
         trigger: el,
-        start: 'top 85%',
+        start: 'top 92%',
         toggleActions: 'play none none none',
       },
       onUpdate: () => {
@@ -279,6 +279,9 @@ function init3DTilt() {
 
 function initFAQAccordion() {
   document.querySelectorAll<HTMLElement>('[data-faq]').forEach((item) => {
+    if (item.dataset.faqBound) return;
+    item.dataset.faqBound = '1';
+
     const question = item.querySelector<HTMLElement>('[data-faq-q]');
     const answer = item.querySelector<HTMLElement>('[data-faq-a]');
     if (!question || !answer) return;
@@ -286,10 +289,13 @@ function initFAQAccordion() {
     question.style.cursor = 'pointer';
     question.classList.add('flex', 'items-center', 'justify-between', 'gap-3');
 
-    const icon = document.createElement('span');
-    icon.className = 'faq-icon text-primary text-xl font-bold transition-transform duration-300 shrink-0';
-    icon.textContent = '+';
-    question.appendChild(icon);
+    let icon = question.querySelector<HTMLElement>('.faq-icon');
+    if (!icon) {
+      icon = document.createElement('span');
+      icon.className = 'faq-icon text-primary text-xl font-bold transition-transform duration-300 shrink-0';
+      icon.textContent = '+';
+      question.appendChild(icon);
+    }
 
     gsap.set(answer, { height: 0, opacity: 0, overflow: 'hidden' });
 
@@ -331,7 +337,7 @@ function initSectionLabels() {
       ease: 'power3.out',
       scrollTrigger: {
         trigger: label,
-        start: 'top 90%',
+        start: 'top 95%',
         toggleActions: 'play none none none',
       },
     });
