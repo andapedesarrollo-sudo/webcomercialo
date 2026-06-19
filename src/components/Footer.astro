@@ -1,5 +1,5 @@
 ---
-const solutions = ['Gastronomia', 'Comercios', 'POS Rapido', 'Desarrollo a medida'];
+import { solutions } from '../data/solutions';
 const features = ['Facturación electrónica', 'POS rápido', 'Inventario', 'Dashboard gerencial'];
 const company = ['Casos de éxito', 'Blog', 'Política de privacidad', 'Términos de servicio'];
 ---
@@ -20,7 +20,7 @@ const company = ['Casos de éxito', 'Blog', 'Política de privacidad', 'Término
     <div class="footer-col">
       <h4 class="text-[0.75rem] font-bold uppercase tracking-[0.1em] text-white/40 mb-3">Soluciones</h4>
       {solutions.map((s) => (
-        <a href="#" class="block text-white/70 text-[0.85rem] mb-2 transition-colors duration-150 hover:text-green-400 no-underline">{s}</a>
+        <a href={`/soluciones/${s.slug}`} class="block text-white/70 text-[0.85rem] mb-2 transition-colors duration-150 hover:text-green-400 no-underline">{s.title}</a>
       ))}
     </div>
 

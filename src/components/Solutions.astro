@@ -1,10 +1,5 @@
 ---
-const cards = [
-  { emoji: '🛍️', bg: 'bg-gradient-to-br from-[#009944] to-[#007733]', badge: 'Comercios', title: 'Comercios', desc: 'Punto de venta ágil, control de productos, inventario y clientes frecuentes.' },
-  { emoji: '🍽️', bg: 'bg-gradient-to-br from-[#00C060] to-[#00A650]', badge: 'Gastronomía', title: 'Gastronomía', desc: 'Gestiona mesas, comandas, cocina, delivery y más. Todo integrado.' },
-  { emoji: '⚡', bg: 'bg-gradient-to-br from-[#00A650] to-[#008040]', badge: 'POS Rápido', title: 'POS Rápido', desc: 'Menos de 3 clics por venta.' },
-  { emoji: '🛠️', bg: 'bg-gradient-to-br from-[#1A202C] to-[#2D3748]', badge: 'Desarrollo a medida', title: 'Desarrollo a medida', desc: '¿Tu negocio tiene necesidades especiales? Desarrollamos una solución personalizada para ti.', special: true },
-];
+import { solutions as cards } from '../data/solutions';
 ---
 
 <section class="py-[76px]" id="soluciones">
@@ -23,7 +18,7 @@ const cards = [
             <div class={`p-[18px]_px-5 py-[18px] px-5 ${card.special ? 'bg-transparent' : 'bg-white'}`}>
               <h3 class="text-[0.95rem] font-bold mb-1 text-dark2">{card.title}</h3>
               <p class="text-gray text-[0.8rem] leading-snug mb-2.5">{card.desc}</p>
-              <a href={card.special ? '#demo' : '#'} class="text-[0.78rem] font-bold text-primary flex items-center gap-1 no-underline hover:underline">
+              <a href={card.special ? '#demo' : `/soluciones/${card.slug}`} class="text-[0.78rem] font-bold text-primary flex items-center gap-1 no-underline hover:underline">
                 {card.special ? 'Hablar con un experto' : 'Conocer más'} →
               </a>
             </div>

@@ -1,0 +1,137 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PromoBanner from '../../components/PromoBanner.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import WhatsAppFloat from '../../components/WhatsAppFloat.astro';
+import { solutions, getSolutionBySlug } from '../../data/solutions';
+
+export function getStaticPaths() {
+  return solutions.map((s) => ({ params: { slug: s.slug } }));
+}
+
+const { slug } = Astro.params;
+const solution = getSolutionBySlug(slug as string);
+
+if (!solution) return Astro.redirect('/');
+
+const iconMap: Record<string, string> = {
+  cart: '<path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>',
+  box: '<path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>',
+  tag: '<path d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/>',
+  users: '<path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>',
+  chart: '<path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>',
+  receipt: '<path d="M9 14l6-6m-5.5 8.5l.5-.5m3-2.5l.5-.5M9 5h6a2 2 0 012 2v10l-2-2-2 2-2-2-2 2-2-2V7a2 2 0 012-2z"/>',
+  table: '<path d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/>',
+  clipboard: '<path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>',
+  chef: '<path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>',
+  truck: '<path d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0"/>',
+  split: '<path d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/>',
+  recipe: '<path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>',
+  zap: '<path d="M13 10V3L4 14h7v7l9-11h-7z"/>',
+  keyboard: '<path d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/>',
+  grid: '<path d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/>',
+  cash: '<path d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 100-4 2 2 0 000 4z"/>',
+  clock: '<path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>',
+  offline: '<path d="M18.364 5.636a9 9 0 010 12.728m0 0l-2.829-2.829m2.829 2.829L21 21M15.536 8.464a5 5 0 010 7.072m0 0l-2.829-2.829m-4.243 2.829a4.978 4.978 0 01-1.414-2.83m-1.414 5.658a9 9 0 01-2.167-9.238m7.824 2.167a1 1 0 111.414 1.414m-1.414-1.414L3 3m8.293 8.293l1.414 1.414"/>',
+  code: '<path d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>',
+  link: '<path d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/>',
+  database: '<path d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"/>',
+  support: '<path d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"/>',
+  shield: '<path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>',
+  rocket: '<path d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.631 8.41m5.96 5.96a14.926 14.926 0 01-5.841 2.58m-.119-8.54a6 6 0 00-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 00-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 01-2.448-2.448 14.9 14.9 0 01.06-.312m-2.24 2.39a4.493 4.493 0 00-1.757 4.306 4.493 4.493 0 004.306-1.758M16.5 9a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"/>',
+};
+---
+
+<Layout title={`${solution.title} | Comercialo`} description={solution.extendedDesc}>
+  <PromoBanner />
+  <Header />
+
+  <section class={`relative overflow-hidden ${solution.bg}`}>
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(255,255,255,0.15)_0%,_transparent_50%)]"></div>
+    <div class="relative max-w-[1180px] mx-auto px-6 py-20 md:py-28">
+      <a href="/#soluciones" class="inline-flex items-center gap-1.5 text-sm text-white/80 hover:text-white transition-colors duration-200 mb-8 no-underline cursor-pointer" data-animate="fade-up">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+        Volver a soluciones
+      </a>
+
+      <div class="max-w-[700px]" data-animate="fade-up">
+        <span class="inline-block text-5xl md:text-6xl mb-6">{solution.emoji}</span>
+        <h1 class="text-[clamp(2.2rem,5vw,3.5rem)] font-extrabold text-white mb-5 leading-[1.1]">{solution.title}</h1>
+        <p class="text-white/90 text-lg md:text-xl leading-relaxed mb-8 max-w-[580px]">{solution.extendedDesc}</p>
+        <a href="/#demo" data-magnetic="0.3" class="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-lg bg-white text-dark2 font-bold text-base shadow-[0_4px_20px_rgba(0,0,0,0.15)] transition-all duration-200 hover:shadow-[0_8px_30px_rgba(0,0,0,0.2)] hover:-translate-y-0.5 cursor-pointer no-underline">
+          Prueba gratis por 15 días
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 md:py-20 bg-light">
+    <div class="max-w-[1180px] mx-auto px-6">
+      <div class="text-center mb-12" data-animate="fade-up">
+        <span class="block text-xs font-bold tracking-[0.14em] uppercase text-primary mb-2">Funcionalidades</span>
+        <h2 class="font-bold text-[clamp(1.6rem,3vw,2.2rem)] text-dark2">Todo lo que necesitas para tu negocio</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5" data-animate="stagger" data-stagger-target=".feature-card">
+        {solution.features.map((feature) => (
+          <div class="feature-card group bg-white rounded-xl p-7 border border-border transition-all duration-200 hover:border-primary/30 hover:shadow-[0_4px_20px_rgba(0,166,80,0.08)] cursor-pointer">
+            <div class="w-12 h-12 rounded-lg bg-primary-light flex items-center justify-center mb-5 transition-colors duration-200 group-hover:bg-primary/15">
+              <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" set:html={iconMap[feature.icon] || iconMap.box} />
+            </div>
+            <h3 class="font-bold text-dark2 text-[1.05rem] mb-2.5">{feature.title}</h3>
+            <p class="text-gray text-[0.9rem] leading-relaxed">{feature.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 md:py-20">
+    <div class="max-w-[1180px] mx-auto px-6">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8" data-animate="stagger" data-stagger-target=".benefit-item">
+        <div class="benefit-item text-center">
+          <div class="w-14 h-14 rounded-full bg-primary-light flex items-center justify-center mx-auto mb-4">
+            <svg class="w-7 h-7 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          </div>
+          <h3 class="font-bold text-dark2 text-lg mb-2">Implementación rápida</h3>
+          <p class="text-gray text-sm leading-relaxed">Tu negocio funcionando en 48 horas con capacitación incluida.</p>
+        </div>
+        <div class="benefit-item text-center">
+          <div class="w-14 h-14 rounded-full bg-primary-light flex items-center justify-center mx-auto mb-4">
+            <svg class="w-7 h-7 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+          </div>
+          <h3 class="font-bold text-dark2 text-lg mb-2">100% seguro</h3>
+          <p class="text-gray text-sm leading-relaxed">Cumplimiento SUNAT garantizado. Tus datos protegidos en la nube.</p>
+        </div>
+        <div class="benefit-item text-center">
+          <div class="w-14 h-14 rounded-full bg-primary-light flex items-center justify-center mx-auto mb-4">
+            <svg class="w-7 h-7 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+          </div>
+          <h3 class="font-bold text-dark2 text-lg mb-2">Soporte dedicado</h3>
+          <p class="text-gray text-sm leading-relaxed">Equipo de soporte disponible por WhatsApp, chat y teléfono.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 md:py-20 bg-dark2">
+    <div class="max-w-[700px] mx-auto px-6 text-center" data-animate="fade-up">
+      <h2 class="font-bold text-[clamp(1.6rem,3vw,2.2rem)] text-white mb-4">¿Listo para transformar tu negocio?</h2>
+      <p class="text-white/70 text-lg mb-8">Prueba Comercialo gratis por 15 días. Sin tarjeta de crédito.</p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="/#demo" data-magnetic="0.3" class="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-lg bg-primary text-white font-bold text-base shadow-[0_4px_14px_rgba(0,166,80,0.30)] transition-all duration-200 hover:bg-primary-dark hover:shadow-[0_8px_22px_rgba(0,166,80,0.40)] cursor-pointer no-underline">
+          Prueba gratis por 15 días
+        </a>
+        {solution.special && (
+          <a href="/#demo" class="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-lg border-2 border-white/30 text-white font-bold text-base transition-all duration-200 hover:bg-white/10 hover:border-white/50 cursor-pointer no-underline">
+            Hablar con un experto
+          </a>
+        )}
+      </div>
+    </div>
+  </section>
+
+  <Footer />
+  <WhatsAppFloat />
+</Layout>
