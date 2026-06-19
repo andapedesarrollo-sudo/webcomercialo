@@ -187,21 +187,43 @@ function initWaFloat() {
   const wa = document.querySelector<HTMLElement>('[data-animate="wa-float"]');
   if (!wa) return;
 
-  gsap.from(wa, {
-    scale: 0,
-    opacity: 0,
+  const tl = gsap.timeline();
+
+  tl.set(wa, { scale: 0, opacity: 0 });
+  tl.to(wa, {
+    scale: 1,
+    opacity: 1,
     duration: 0.5,
     ease: 'back.out(1.7)',
     delay: 1,
   });
-
-  gsap.to(wa, {
-    scale: 1.06,
-    duration: 1.2,
-    ease: 'power1.inOut',
+  tl.to(wa, {
+    y: -6,
+    duration: 2.5,
+    ease: 'sine.inOut',
     repeat: -1,
     yoyo: true,
-    delay: 1.5,
+  });
+
+  tl.eventCallback('onInterrupt', () => {
+    wa.style.opacity = '1';
+    wa.style.transform = 'none';
+  });
+
+  wa.addEventListener('mouseenter', () => {
+    gsap.to(wa, {
+      scale: 1.15,
+      duration: 0.3,
+      ease: 'power2.out',
+    });
+  });
+
+  wa.addEventListener('mouseleave', () => {
+    gsap.to(wa, {
+      scale: 1,
+      duration: 0.4,
+      ease: 'elastic.out(1, 0.4)',
+    });
   });
 }
 

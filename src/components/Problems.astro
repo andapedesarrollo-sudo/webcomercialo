@@ -1,27 +1,132 @@
 ---
 const problems = [
-  { emoji: '🚫', title: 'Multas SUNAT', desc: 'Facturación 100% automática y cumplida, sin riesgo de sanciones.' },
-  { emoji: '📉', title: 'Pérdidas de inventario', desc: 'Control de stock en tiempo real que elimina fugas y mermas.' },
-  { emoji: '📋', title: 'Procesos manuales', desc: 'Automatización que ahorra hasta 15 horas semanales de trabajo repetitivo.' },
-  { emoji: '📊', title: 'Reportes confusos', desc: 'Dashboard gerencial visual con KPIs claros al instante.' },
-  { emoji: '📵', title: 'Sin control remoto', desc: 'Accede a tu negocio desde cualquier lugar, 24/7 en la nube.' },
-  { emoji: '⏳', title: 'Cierres lentos', desc: 'Cierra caja en minutos, conciliación automática de ventas.' },
+  {
+    icon: `<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><line x1="12" y1="8" x2="12" y2="12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="12" cy="15.5" r="0.75" fill="currentColor" stroke="none"/>`,
+    problem: 'Multas SUNAT',
+    solution: 'Facturación 100% automática y cumplida, sin riesgo de sanciones.',
+  },
+  {
+    icon: `<path d="M16 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V8l-5-5z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><polyline points="16 3 16 8 21 8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><line x1="9" y1="13" x2="15" y2="13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><line x1="9" y1="17" x2="13" y2="17" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>`,
+    problem: 'Pérdidas de inventario',
+    solution: 'Control de stock en tiempo real que elimina fugas y mermas.',
+  },
+  {
+    icon: `<rect x="2" y="3" width="20" height="18" rx="2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><line x1="6" y1="3" x2="18" y2="3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><line x1="9" y1="10" x2="15" y2="10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><line x1="9" y1="14" x2="15" y2="14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><line x1="9" y1="18" x2="13" y2="18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>`,
+    problem: 'Procesos manuales',
+    solution: 'Automatización que ahorra hasta 15 horas semanales de trabajo repetitivo.',
+  },
+  {
+    icon: `<rect x="3" y="12" width="4" height="8" rx="1" fill="currentColor"/><rect x="9" y="7" width="4" height="13" rx="1" fill="currentColor"/><rect x="15" y="3" width="4" height="17" rx="1" fill="currentColor"/>`,
+    problem: 'Reportes confusos',
+    solution: 'Dashboard gerencial visual con KPIs claros al instante.',
+  },
+  {
+    icon: `<circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><ellipse cx="12" cy="12" rx="4" ry="9" fill="none" stroke="currentColor" stroke-width="1.6"/><line x1="2" y1="12" x2="22" y2="12" stroke="currentColor" stroke-width="1.6"/>`,
+    problem: 'Sin control remoto',
+    solution: 'Accede a tu negocio desde cualquier lugar, 24/7 en la nube.',
+  },
+  {
+    icon: `<circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><polyline points="12 6 12 12 16 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>`,
+    problem: 'Cierres lentos',
+    solution: 'Cierra caja en minutos con conciliación automática de ventas.',
+  },
 ];
 ---
 
-<section class="py-[76px] bg-light">
-  <div class="max-w-[1180px] mx-auto px-6">
-    <span class="block text-center text-xs font-bold tracking-[0.14em] uppercase text-primary mb-2" data-animate="fade-up">¿Te suena familiar?</span>
-    <h2 class="text-center font-bold text-[clamp(1.7rem,3.2vw,2.4rem)] leading-tight mb-1.5 text-dark2" data-animate="fade-up">Deja atrás los dolores<br>operativos</h2>
-    <p class="text-center text-gray text-base max-w-[580px] mx-auto mb-11 leading-relaxed" data-animate="fade-up">Comercialo elimina los problemas que frenan el crecimiento de tu negocio.</p>
+<section class="py-20 md:py-24 bg-light relative overflow-hidden">
+  <div
+    class="absolute top-0 right-0 w-[380px] h-[380px] bg-[radial-gradient(circle,rgba(0,166,80,0.05)_0%,transparent_70%)] rounded-full translate-x-1/3 -translate-y-1/3 pointer-events-none"
+  ></div>
+  <div
+    class="absolute bottom-0 left-0 w-[380px] h-[380px] bg-[radial-gradient(circle,rgba(0,166,80,0.04)_0%,transparent_70%)] rounded-full -translate-x-1/3 translate-y-1/3 pointer-events-none"
+  ></div>
+
+  <div class="max-w-[1180px] mx-auto px-6 relative">
+    <span
+      class="block text-center text-xs font-bold tracking-[0.16em] uppercase text-primary/60 mb-3"
+      data-animate="fade-up"
+    >
+      Problemas comunes
+    </span>
+    <h2
+      class="text-center font-extrabold text-[clamp(1.8rem,3.5vw,2.5rem)] leading-tight mb-3 text-dark2"
+      data-animate="fade-up"
+    >
+      Deja atrás los dolores<br />operativos
+    </h2>
+    <p
+      class="text-center text-gray text-base max-w-[560px] mx-auto mb-12 leading-relaxed"
+      data-animate="fade-up"
+    >
+      Comercialo elimina los problemas que frenan el crecimiento de tu negocio.
+    </p>
+
     <div data-animate="stagger" data-stagger-target=".prob-card">
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        {problems.map((p) => (
-          <div class="prob-card bg-white p-6 rounded-xl shadow-[0_1px_4px_rgba(0,0,0,0.07)] border border-border border-l-4 border-l-primary transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_8px_28px_rgba(0,0,0,0.09)]">
-            <h3 class="text-[0.95rem] font-bold flex items-center gap-2 mb-1.5 text-dark2">{p.emoji} {p.title}</h3>
-            <p class="text-gray text-[0.88rem] leading-relaxed">{p.desc}</p>
-          </div>
-        ))}
+        {
+          problems.map((p) => (
+            <div
+              class="prob-card group bg-white rounded-2xl p-5 border border-border
+                     shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)]
+                     transition-all duration-300 ease-out
+                     hover:-translate-y-1.5
+                     hover:shadow-[0_8px_28px_rgba(0,0,0,0.08),0_0_0_1px_rgba(0,166,80,0.12)]
+                     relative overflow-hidden"
+            >
+              <div
+                class="absolute inset-x-0 top-0 h-[3px] bg-gradient-to-r from-primary-light via-primary to-primary-dark
+                       origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out"
+              ></div>
+
+              <div
+                class="w-10 h-10 rounded-xl bg-primary-light flex items-center justify-center mb-3.5
+                       transition-all duration-300 group-hover:scale-105 group-hover:shadow-[0_0_0_4px_rgba(0,166,80,0.10)]"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  class="w-[20px] h-[20px] text-primary transition-colors duration-300"
+                  fill="none"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  set:html={p.icon}
+                />
+              </div>
+
+              <h3 class="text-[0.92rem] font-bold text-dark2 mb-2 leading-snug">
+                {p.problem}
+              </h3>
+
+              <div
+                class="h-px bg-gradient-to-r from-primary-light via-border to-primary-light mb-3"
+              ></div>
+
+              <p class="text-[0.84rem] text-gray leading-relaxed">
+                {p.solution}
+              </p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <div
+      class="flex flex-wrap items-center justify-center gap-5 mt-12 text-center"
+      data-animate="fade-up"
+    >
+      <div class="flex items-center gap-2 bg-white border border-border rounded-full px-4 py-2 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+        <svg viewBox="0 0 24 24" class="w-[18px] h-[18px] text-primary" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 11.08V12a10 10 0 11-5.93-9.14" />
+          <polyline points="22 4 12 14.01 9 11.01" />
+        </svg>
+        <span class="text-sm font-semibold text-dark2">+500 negocios ya lo resolvieron</span>
+      </div>
+      <div class="flex items-center gap-2 text-sm text-gray font-medium">
+        <span class="w-1.5 h-1.5 rounded-full bg-primary inline-block"></span>
+        <span>0 multas</span>
+        <span class="w-1.5 h-1.5 rounded-full bg-primary inline-block"></span>
+        <span>15 hrs ahorradas / semana</span>
+        <span class="w-1.5 h-1.5 rounded-full bg-primary inline-block"></span>
+        <span>100% en la nube</span>
       </div>
     </div>
   </div>

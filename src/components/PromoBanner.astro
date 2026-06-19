@@ -1,9 +1,40 @@
 ---
+const promoText = "🎉 ¡Obtén tu prueba gratis por 15 días!";
+const repeats = 8;
 ---
 
-<div data-animate="fade-up" class="bg-yellow px-6 py-3.5 text-center flex items-center justify-center gap-3 flex-wrap">
-  <span class="text-sm font-bold text-dark2">🎉 ¡Obtén tu prueba gratis por 15 días!</span>
-  <a href="#demo" class="bg-primary text-white px-4.5 py-1.5 rounded-md text-xs font-bold no-underline transition-colors hover:bg-primary-dark">
-    Empezar ahora →
-  </a>
+<div data-animate="fade-up" class="bg-yellow px-6 py-3.5 text-center flex items-center overflow-hidden">
+  <div class="promo-track">
+    <div class="promo-group">
+      {Array.from({ length: repeats }).map(() => (
+        <span class="text-sm font-bold text-dark2 shrink-0 whitespace-nowrap">{promoText}</span>
+      ))}
+    </div>
+    
+    <div class="promo-group" aria-hidden="true">
+      {Array.from({ length: repeats }).map(() => (
+        <span class="text-sm font-bold text-dark2 shrink-0 whitespace-nowrap">{promoText}</span>
+      ))}
+    </div>
+  </div>
 </div>
+
+<style>
+  .promo-track {
+    display: flex;
+    width: max-content;
+    animation: marquee 60s linear infinite;
+    will-change: transform;
+  }
+
+  .promo-group {
+    display: flex;
+    gap: 3rem;
+    padding-right: 3rem;
+  }
+
+  @keyframes marquee {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+</style>

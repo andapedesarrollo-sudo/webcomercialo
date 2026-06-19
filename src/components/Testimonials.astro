@@ -1,29 +1,108 @@
 ---
 const testimonials = [
-  { stars: '★★★★★', metric: '45 min → 8 min', quote: 'Reducimos el tiempo de cierre de caja de 45 a 8 minutos. Las comandas a cocina nos cambiaron la vida.', name: 'Juan Pérez', role: 'La Cevichería Arequipeña' },
-  { stars: '★★★★★', metric: '-40% mermas', quote: 'Ahora sé exactamente qué producto rota y cuál no. Redujimos las pérdidas en un 40%.', name: 'María Gómez', role: 'Minimarket El Sol' },
-  { stars: '★★★★★', metric: '500 boletas/mes', quote: 'Emitimos 500 boletas electrónicas al mes sin un solo error ante SUNAT. El soporte es increíble.', name: 'Carlos Ruiz', role: 'Consultora CR' },
+  {
+    initials: 'JP',
+    stars: '★★★★★',
+    metric: '45 min → 8 min',
+    quote: 'Reducimos el tiempo de cierre de caja de 45 a 8 minutos. Las comandas a cocina nos cambiaron la vida.',
+    name: 'Juan Pérez',
+    role: 'La Cevichería Arequipeña',
+  },
+  {
+    initials: 'MG',
+    stars: '★★★★★',
+    metric: '-40% mermas',
+    quote: 'Ahora sé exactamente qué producto rota y cuál no. Redujimos las pérdidas en un 40%.',
+    name: 'María Gómez',
+    role: 'Minimarket El Sol',
+  },
+  {
+    initials: 'CR',
+    stars: '★★★★★',
+    metric: '500 boletas/mes',
+    quote: 'Emitimos 500 boletas electrónicas al mes sin un solo error ante SUNAT. El soporte es increíble.',
+    name: 'Carlos Ruiz',
+    role: 'Consultora CR',
+  },
 ];
 ---
 
-<section class="py-[76px] bg-light" id="casos">
-  <div class="max-w-[1180px] mx-auto px-6">
-    <span class="block text-center text-xs font-bold tracking-[0.14em] uppercase text-primary mb-2" data-animate="fade-up">Casos de éxito</span>
-    <h2 class="text-center font-bold text-[clamp(1.7rem,3.2vw,2.4rem)] leading-tight mb-11 text-dark2" data-animate="fade-up">Negocios que ya<br>están creciendo</h2>
+<section class="py-20 md:py-24 bg-light relative overflow-hidden" id="casos">
+  <div
+    class="absolute top-0 right-0 w-[350px] h-[350px] bg-[radial-gradient(circle,rgba(0,166,80,0.04)_0%,transparent_70%)] rounded-full translate-x-1/3 -translate-y-1/3 pointer-events-none"
+  ></div>
+  <div
+    class="absolute bottom-0 left-0 w-[350px] h-[350px] bg-[radial-gradient(circle,rgba(0,166,80,0.03)_0%,transparent_70%)] rounded-full -translate-x-1/3 translate-y-1/3 pointer-events-none"
+  ></div>
+
+  <div class="max-w-[1180px] mx-auto px-6 relative">
+    <span
+      class="block text-center text-xs font-bold tracking-[0.16em] uppercase text-primary/60 mb-3"
+      data-animate="fade-up"
+    >
+      Casos de éxito
+    </span>
+    <h2
+      class="text-center font-extrabold text-[clamp(1.8rem,3.5vw,2.5rem)] leading-tight mb-3 text-dark2"
+      data-animate="fade-up"
+    >
+      Negocios que ya<br />están creciendo
+    </h2>
+    <p
+      class="text-center text-gray text-base max-w-[520px] mx-auto mb-12 leading-relaxed"
+      data-animate="fade-up"
+    >
+      Resultados comprobados de emprendedores que usan Comercialo a diario.
+    </p>
+
     <div data-animate="stagger" data-stagger-target=".testi-card">
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        {testimonials.map((t) => (
-          <div class="testi-card relative overflow-hidden bg-white p-6 rounded-xl shadow-[0_1px_4px_rgba(0,0,0,0.07)] border border-border transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_8px_28px_rgba(0,0,0,0.09)]">
-            <div class="text-amber-400 text-sm tracking-[2px] mb-2">{t.stars}</div>
-            <div class="text-2xl font-extrabold text-primary my-2 leading-none">{t.metric}</div>
-            <blockquote class="text-gray text-[0.87rem] italic mb-3.5 leading-relaxed">"{t.quote}"</blockquote>
-            <div>
-              <strong class="text-[0.88rem] block text-dark2">{t.name}</strong>
-              <span class="text-[0.75rem] text-gray">{t.role}</span>
+        {
+          testimonials.map((t) => (
+            <div
+              class="testi-card group bg-white rounded-2xl p-6 border border-border
+                     shadow-[0_1px_3px_rgba(0,0,0,0.03),0_4px_12px_rgba(0,0,0,0.02)]
+                     transition-all duration-300 ease-out
+                     hover:-translate-y-1.5 hover:shadow-[0_8px_28px_rgba(0,0,0,0.08),0_0_0_1px_rgba(0,166,80,0.10)]
+                     relative overflow-hidden"
+            >
+              <div
+                class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-primary-light via-primary to-primary-dark
+                       origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out"
+              ></div>
+
+              <span
+                class="absolute -top-2 right-5 text-[4.5rem] text-primary/8 font-serif leading-none pointer-events-none select-none"
+              >
+                "
+              </span>
+
+              <div class="text-amber-400 text-sm tracking-[2px] mb-2.5">
+                {t.stars}
+              </div>
+
+              <div class="text-[clamp(1.5rem,2.5vw,1.8rem)] font-extrabold text-primary leading-tight mb-3">
+                {t.metric}
+              </div>
+
+              <blockquote class="text-[0.85rem] text-gray italic leading-relaxed mb-4">
+                "{t.quote}"
+              </blockquote>
+
+              <div class="h-px bg-gradient-to-r from-primary-light via-border to-transparent mb-4"></div>
+
+              <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-full bg-primary-light flex items-center justify-center shrink-0">
+                  <span class="text-[0.7rem] font-extrabold text-primary">{t.initials}</span>
+                </div>
+                <div>
+                  <strong class="text-[0.85rem] block text-dark2 leading-snug">{t.name}</strong>
+                  <span class="text-[0.75rem] text-gray">{t.role}</span>
+                </div>
+              </div>
             </div>
-            <span class="absolute -top-2.5 right-4 text-[5rem] text-primary-light font-extrabold leading-none pointer-events-none select-none">"</span>
-          </div>
-        ))}
+          ))
+        }
       </div>
     </div>
   </div>

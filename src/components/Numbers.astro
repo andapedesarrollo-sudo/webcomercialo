@@ -7,18 +7,96 @@ const stats = [
 ];
 ---
 
-<section class="py-[76px]">
-  <div class="max-w-[1180px] mx-auto px-6">
-    <span class="block text-center text-xs font-bold tracking-[0.14em] uppercase text-primary mb-2" data-animate="fade-up">Resultados reales</span>
-    <h2 class="text-center font-bold text-[clamp(1.7rem,3.2vw,2.4rem)] leading-tight mb-11 text-dark2" data-animate="fade-up">Números que hablan<br>por sí solos</h2>
-    <div class="grid grid-cols-2 lg:grid-cols-4 gap-5" data-animate="stagger" data-stagger-target=".num-card">
-      {stats.map((s) => (
-        <div class="num-card bg-white p-6 rounded-xl shadow-[0_1px_4px_rgba(0,0,0,0.07)] border border-border text-center transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_8px_28px_rgba(0,0,0,0.09)]">
-          <div class="text-[2.4rem] font-extrabold text-primary leading-none mb-1.5" data-animate="counter" data-target={String(s.target)} data-prefix={s.prefix} data-suffix={s.suffix}>0</div>
-          <h3 class="text-[0.9rem] font-bold mb-1 text-dark2">{s.title}</h3>
-          <p class="text-gray text-[0.8rem]">{s.desc}</p>
-        </div>
-      ))}
+<section class="py-20 md:py-24 bg-white relative overflow-hidden">
+  <div
+    class="absolute top-0 right-0 w-[350px] h-[350px] bg-[radial-gradient(circle,rgba(0,166,80,0.04)_0%,transparent_70%)] rounded-full translate-x-1/3 -translate-y-1/3 pointer-events-none"
+  ></div>
+  <div
+    class="absolute bottom-0 left-0 w-[350px] h-[350px] bg-[radial-gradient(circle,rgba(0,166,80,0.03)_0%,transparent_70%)] rounded-full -translate-x-1/3 translate-y-1/3 pointer-events-none"
+  ></div>
+
+  <div class="max-w-[1180px] mx-auto px-6 relative">
+    <span
+      class="block text-center text-xs font-bold tracking-[0.16em] uppercase text-primary/60 mb-3"
+      data-animate="fade-up"
+    >
+      Resultados reales
+    </span>
+    <h2
+      class="text-center font-extrabold text-[clamp(1.8rem,3.5vw,2.5rem)] leading-tight mb-3 text-dark2"
+      data-animate="fade-up"
+    >
+      Números que hablan<br />por sí solos
+    </h2>
+    <p
+      class="text-center text-gray text-base max-w-[520px] mx-auto mb-12 leading-relaxed"
+      data-animate="fade-up"
+    >
+      Cada cifra representa el impacto real en negocios como el tuyo.
+    </p>
+
+    <div
+      class="grid grid-cols-2 lg:grid-cols-4 gap-5"
+      data-animate="stagger"
+      data-stagger-target=".num-card"
+    >
+      {
+        stats.map((s) => (
+          <div
+            class="num-card group bg-white rounded-2xl p-6 border border-border
+                   shadow-[0_1px_3px_rgba(0,0,0,0.03),0_4px_12px_rgba(0,0,0,0.02)]
+                   transition-all duration-300 ease-out
+                   hover:-translate-y-1.5 hover:shadow-[0_8px_28px_rgba(0,0,0,0.08),0_0_0_1px_rgba(0,166,80,0.10)]
+                   relative overflow-hidden text-center"
+          >
+            <div
+              class="absolute inset-x-0 top-0 h-1 bg-primary
+                     origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out"
+            ></div>
+
+            <div
+              class="text-[clamp(2rem,3.5vw,2.6rem)] font-extrabold text-primary leading-none mb-2"
+              data-animate="counter"
+              data-target={String(s.target)}
+              data-prefix={s.prefix}
+              data-suffix={s.suffix}
+            >
+              0
+            </div>
+
+            <h3 class="text-[0.9rem] font-bold text-dark2 mb-1.5">
+              {s.title}
+            </h3>
+
+            <div
+              class="w-8 h-0.5 bg-primary/25 rounded-full mx-auto mb-2.5"
+            ></div>
+
+            <p class="text-[0.82rem] text-gray leading-relaxed">
+              {s.desc}
+            </p>
+          </div>
+        ))
+      }
+    </div>
+
+    <div
+      class="flex items-center justify-center gap-2 mt-10 text-sm text-gray font-medium"
+      data-animate="fade-up"
+    >
+      <svg
+        viewBox="0 0 24 24"
+        class="w-[18px] h-[18px] text-primary shrink-0"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M22 11.08V12a10 10 0 11-5.93-9.14" />
+        <polyline points="22 4 12 14.01 9 11.01" />
+      </svg>
+      <span>+500 negocios ya crecen con Comercialo</span>
     </div>
   </div>
 </section>
