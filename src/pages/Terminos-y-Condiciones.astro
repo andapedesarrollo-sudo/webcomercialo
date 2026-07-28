@@ -1,0 +1,202 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+const secciones = [
+  {
+    n: 1,
+    titulo: 'Glosario aplicable',
+    parrafos: [
+      'Para la correcta interpretación de este Acuerdo se entenderá por:',
+    ],
+    lista: [
+      '<strong>Cliente:</strong> persona natural o jurídica que contrata el Software.',
+      '<strong>Contrato comercial:</strong> documento específico de contratación.',
+      '<strong>Comprobante electrónico:</strong> documento tributario digital conforme a SUNAT.',
+      '<strong>Sistema contable:</strong> software independiente de NubeRest donde el Cliente registra sus libros contables.',
+      '<strong>Proveedor:</strong> GEN AI LEGAL S.A.C.S.',
+    ],
+  },
+  {
+    n: 2,
+    titulo: 'Naturaleza y alcance del Software',
+    parrafos: [
+      'NubeRest es una herramienta tecnológica de apoyo a la gestión operativa de negocios del rubro de comida (restaurantes, cafeterías, dark kitchens, etc.).',
+      '<strong>Lo que el Software NO es:</strong> NubeRest no es un sistema de contabilidad, no genera asientos contables ni libros contables, no reemplaza al contador y no constituye un servicio integral de cumplimiento tributario.',
+    ],
+  },
+  {
+    n: 3,
+    titulo: 'Sistema de Control Operativo no Contable',
+    parrafos: [
+      'El Cliente declara conocer y aceptar que NubeRest NO califica como el "sistema de procesamiento electrónico de datos" para registrar operaciones contables al que se refiere el Código Tributario y el D.S. N° 303-2025-EF. El Cliente declara contar con un sistema contable propio e independiente para dichos fines, eximiendo al Proveedor de habilitar accesos directos de SUNAT a NubeRest.',
+    ],
+  },
+  {
+    n: 4,
+    titulo: 'Responsabilidad exclusiva del Cliente sobre los datos',
+    parrafos: [
+      'El Cliente es el único responsable, frente a terceros y autoridades, de toda la información que registra, carga o emite en el Software. El Proveedor actúa como intermediario tecnológico y no se responsabiliza por multas de SUNAT, INDECOPI u otras autoridades derivadas de información inexacta o declaraciones fuera de plazo por parte del Cliente.',
+    ],
+  },
+  {
+    n: 5,
+    titulo: 'Requisitos técnicos y administración de cuenta',
+    parrafos: [
+      'El uso del Software requiere conexión estable a internet y equipos compatibles por cuenta del Cliente. La vigencia del Software comienza cuando la cuenta se activa en modo producción ante SUNAT. El Cliente debe custodiar sus credenciales diligentemente y designar un Responsable del Sistema.',
+    ],
+  },
+  {
+    n: 6,
+    titulo: 'Uso aceptable y conductas prohibidas',
+    parrafos: [
+      'El Cliente se compromete a no usar el Software para fines ilícitos o fraudulentos. Queda prohibido aplicar ingeniería inversa, replicar, distribuir, alquilar o usar NubeRest para desarrollar productos competidores. El incumplimiento facultará al Proveedor a suspender el acceso o resolver el contrato sin reembolso.',
+    ],
+  },
+  {
+    n: 7,
+    titulo: 'Prestaciones del Proveedor',
+    parrafos: [
+      'Incluye: Soporte técnico en horario hábil, actualizaciones sin costo adicional, emisión de comprobantes (XML, PDF y validación) y almacenamiento por 1 año. Si el Cliente no obtiene el CDR de SUNAT en 4 días, deberá usar contingencia, sin responsabilidad para el Proveedor.',
+    ],
+  },
+  {
+    n: 8,
+    titulo: 'Servicios de Terceros',
+    parrafos: [
+      'NubeRest puede integrarse con terceros (OSE, pasarelas de pago, infraestructura en la nube). Estos se rigen por sus propios términos. El Proveedor no asume responsabilidad por la disponibilidad o fallas de dichos servicios de terceros.',
+    ],
+  },
+  {
+    n: 9,
+    titulo: 'Propiedad intelectual',
+    parrafos: [
+      'Todos los derechos sobre el Software, código, diseño e interfaces pertenecen a GEN AI LEGAL S.A.C.S. Se otorga al Cliente una licencia personal, no exclusiva, intransferible y revocable limitada a la vigencia del Contrato. El Cliente conserva la titularidad de los datos que ingresa al sistema.',
+    ],
+  },
+  {
+    n: 10,
+    titulo: 'Contraprestación, facturación y devoluciones',
+    parrafos: [
+      'Los precios incluyen IGV. El Cliente puede solicitar la devolución del 80% del importe pagado solo dentro de los primeros 5 días calendario. Vencido ese plazo o para costos de hardware, OSE e implementaciones ya ejecutadas, no procede ninguna devolución.',
+    ],
+  },
+  {
+    n: 11,
+    titulo: 'Vigencia, renovación y resolución',
+    parrafos: [
+      'Las contrataciones anuales tienen una vigencia mínima de 12 meses, renovándose automáticamente salvo aviso previo. El Acuerdo puede resolverse por incumplimiento o mutuo acuerdo, tras lo cual el Proveedor eliminará de forma segura los datos según la normativa aplicable.',
+    ],
+  },
+  {
+    n: 12,
+    titulo: 'Limitación de responsabilidad',
+    parrafos: [
+      'El Proveedor no responde por uso indebido, multas tributarias, decisiones basadas en el Software ni lucro cesante. La responsabilidad económica máxima del Proveedor queda limitada al importe efectivamente pagado por el Cliente en los últimos 6 meses.',
+    ],
+  },
+  {
+    n: 13,
+    titulo: 'Indemnidad',
+    parrafos: [
+      'El Cliente mantendrá indemne al Proveedor, directores y trabajadores frente a reclamos, multas o demandas que se originen por el incumplimiento de sus obligaciones tributarias, infracciones legales o el mal uso del Software.',
+    ],
+  },
+  {
+    n: 14,
+    titulo: 'Comunicaciones electrónicas',
+    parrafos: [
+      'Las notificaciones se realizarán vía correo electrónico, WhatsApp o alertas en el sistema. Se reputan válidamente recibidas. El canal oficial de soporte es <a href="mailto:ventas@nuberest.pe">ventas@nuberest.pe</a>.',
+    ],
+  },
+  {
+    n: 15,
+    titulo: 'Protección de datos personales',
+    parrafos: [
+      'El Proveedor es responsable del tratamiento de los datos del Cliente. Sin embargo, para los datos de los consumidores finales cargados en las facturas/boletas, el Cliente actúa como responsable y el Proveedor como encargado del tratamiento.',
+    ],
+  },
+  {
+    n: 16,
+    titulo: 'Cesión y cambio de control',
+    parrafos: [
+      'El Cliente no puede ceder su contrato sin autorización. El Proveedor sí podrá ceder libremente su posición contractual a una empresa vinculada o adquirente, manteniendo las condiciones pactadas con el Cliente.',
+    ],
+  },
+  {
+    n: 17,
+    titulo: 'Modificaciones al Acuerdo',
+    parrafos: [
+      'El Proveedor podrá modificar este Acuerdo comunicando con 45 días de anticipación para cambios esenciales y 15 días para cambios menores. El uso continuado del Software implica la aceptación tácita de los nuevos términos.',
+    ],
+  },
+  {
+    n: 18,
+    titulo: 'Disposiciones generales',
+    parrafos: [
+      'La invalidez de una cláusula no afecta a las demás. Este Acuerdo y el Contrato comercial constituyen el acuerdo íntegro entre las partes. Ninguna parte responde por caso fortuito o fuerza mayor.',
+    ],
+  },
+  {
+    n: 19,
+    titulo: 'Solución de controversias',
+    parrafos: [
+      'Las partes procurarán resolver controversias de buena fe en 30 días. De no haber acuerdo, se someterán a conciliación y posteriormente a la jurisdicción exclusiva de los jueces del distrito judicial de Huánuco.',
+    ],
+  },
+  {
+    n: 20,
+    titulo: 'Aceptación expresa',
+    parrafos: [
+      'Al usar el Software, el Cliente declara tener capacidad legal, haber comprendido el documento y acepta expresamente que NubeRest NO es un sistema contable (Cláusula 3). El Cliente asume toda responsabilidad sobre su cumplimiento tributario frente a SUNAT.',
+    ],
+  },
+];
+---
+
+<Layout title="Términos y Condiciones | NubeRest">
+  <Header />
+  <main class="bg-white text-gray-800">
+    <section class="max-w-4xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
+      <header class="mb-10 border-b border-gray-200 pb-6">
+        <h1 class="text-3xl sm:text-4xl font-bold text-gray-900">Términos y Condiciones</h1>
+        <p class="mt-2 text-sm text-gray-600">NubeRest — GEN AI LEGAL S.A.C.S.</p>
+        <p class="mt-1 text-sm text-gray-500">Versión vigente desde: 02 de Febrero de 2026</p>
+      </header>
+
+      <section class="mb-10 rounded-lg bg-gray-50 border border-gray-200 p-5 sm:p-6">
+        <h2 class="text-lg font-semibold text-gray-900 mb-3">Identificación y Naturaleza del documento</h2>
+        <p class="text-sm leading-relaxed"><strong>Operado por:</strong> GEN AI LEGAL S.A.C.S. (RUC: 20614276534). <strong>Marca comercial:</strong> NubeRest.</p>
+        <p class="text-sm leading-relaxed mt-2"><strong>Domicilio fiscal:</strong> Av. Enrique López Albújar Mza. J Lote 2, Amarilis, Huánuco, Perú.</p>
+        <p class="text-sm leading-relaxed mt-2"><strong>Correo:</strong> <a class="text-primary hover:underline" href="mailto:ventas@nuberest.pe">ventas@nuberest.pe</a> | <strong>WhatsApp:</strong> +51 935 289 770.</p>
+        <p class="text-sm leading-relaxed mt-3">Este documento constituye el Acuerdo de adhesión que regula el uso del Software. Al registrarse, el Cliente declara haber leído, comprendido y aceptado íntegramente estas disposiciones.</p>
+      </section>
+
+      <div class="space-y-8">
+        {secciones.map((s) => (
+          <article id={`clausula-${s.n}`} class="scroll-mt-24">
+            <h2 class="text-xl sm:text-2xl font-semibold text-gray-900 mb-3">
+              {s.n}. {s.titulo}
+            </h2>
+            {s.parrafos.map((p) => (
+              <p class="text-base leading-relaxed text-gray-700 mb-3" set:html={p} />
+            ))}
+            {s.lista && (
+              <ul class="list-disc pl-6 space-y-1 text-gray-700">
+                {s.lista.map((li) => (
+                  <li set:html={li} />
+                ))}
+              </ul>
+            )}
+          </article>
+        ))}
+      </div>
+
+      <footer class="mt-12 pt-6 border-t border-gray-200 text-sm text-gray-500">
+        <p>Última actualización: 02 de Febrero de 2026.</p>
+      </footer>
+    </section>
+  </main>
+  <Footer />
+</Layout>
