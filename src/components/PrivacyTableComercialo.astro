@@ -1,0 +1,25 @@
+---
+interface Props {
+  headers: string[];
+  rows: string[][];
+}
+
+const { headers, rows } = Astro.props;
+---
+
+<div class="my-6 overflow-x-auto rounded-2xl border border-border">
+  <table class="w-full min-w-[640px] border-collapse text-left text-sm">
+    <thead class="bg-[#00AD55]/10 text-foreground">
+      <tr>
+        {headers.map((header) => <th class="border-b border-border px-4 py-3 font-bold">{header}</th>)}
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-border">
+      {rows.map((row) => (
+        <tr class="transition-colors hover:bg-muted/40">
+          {row.map((cell) => <td class="px-4 py-3 align-top text-muted-foreground">{cell}</td>)}
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>

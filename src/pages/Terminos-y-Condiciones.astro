@@ -1,202 +1,511 @@
 ---
+export const prerender = true;
 import Layout from '../layouts/Layout.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
 
-const secciones = [
-  {
-    n: 1,
-    titulo: 'Glosario aplicable',
-    parrafos: [
-      'Para la correcta interpretación de este Acuerdo se entenderá por:',
-    ],
-    lista: [
-      '<strong>Cliente:</strong> persona natural o jurídica que contrata el Software.',
-      '<strong>Contrato comercial:</strong> documento específico de contratación.',
-      '<strong>Comprobante electrónico:</strong> documento tributario digital conforme a SUNAT.',
-      '<strong>Sistema contable:</strong> software independiente de NubeRest donde el Cliente registra sus libros contables.',
-      '<strong>Proveedor:</strong> GEN AI LEGAL S.A.C.S.',
-    ],
+Astro.response.headers.set('Cache-Control', 'public, max-age=60, s-maxage=3600');
+
+const siteUrl = 'https://comercialo.pe';
+const currentUrl = new URL(Astro.url.pathname, siteUrl).href;
+const title = 'Términos y Condiciones de Uso | Comercialo';
+const description = 'Términos y condiciones que regulan el uso de Comercialo, plataforma de gestión comercial para negocios que venden productos o servicios, operada por GEN AI LEGAL S.A.C.S.';
+const lastUpdated = '3 de agosto de 2026';
+
+const termsSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  '@id': `${currentUrl}#webpage`,
+  name: title,
+  description,
+  url: currentUrl,
+  inLanguage: 'es-PE',
+  dateModified: '2026-08-03',
+  breadcrumb: {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Inicio', item: `${siteUrl}/` },
+      { '@type': 'ListItem', position: 2, name: 'Términos y Condiciones', item: currentUrl }
+    ]
   },
-  {
-    n: 2,
-    titulo: 'Naturaleza y alcance del Software',
-    parrafos: [
-      'NubeRest es una herramienta tecnológica de apoyo a la gestión operativa de negocios del rubro de comida (restaurantes, cafeterías, dark kitchens, etc.).',
-      '<strong>Lo que el Software NO es:</strong> NubeRest no es un sistema de contabilidad, no genera asientos contables ni libros contables, no reemplaza al contador y no constituye un servicio integral de cumplimiento tributario.',
-    ],
-  },
-  {
-    n: 3,
-    titulo: 'Sistema de Control Operativo no Contable',
-    parrafos: [
-      'El Cliente declara conocer y aceptar que NubeRest NO califica como el "sistema de procesamiento electrónico de datos" para registrar operaciones contables al que se refiere el Código Tributario y el D.S. N° 303-2025-EF. El Cliente declara contar con un sistema contable propio e independiente para dichos fines, eximiendo al Proveedor de habilitar accesos directos de SUNAT a NubeRest.',
-    ],
-  },
-  {
-    n: 4,
-    titulo: 'Responsabilidad exclusiva del Cliente sobre los datos',
-    parrafos: [
-      'El Cliente es el único responsable, frente a terceros y autoridades, de toda la información que registra, carga o emite en el Software. El Proveedor actúa como intermediario tecnológico y no se responsabiliza por multas de SUNAT, INDECOPI u otras autoridades derivadas de información inexacta o declaraciones fuera de plazo por parte del Cliente.',
-    ],
-  },
-  {
-    n: 5,
-    titulo: 'Requisitos técnicos y administración de cuenta',
-    parrafos: [
-      'El uso del Software requiere conexión estable a internet y equipos compatibles por cuenta del Cliente. La vigencia del Software comienza cuando la cuenta se activa en modo producción ante SUNAT. El Cliente debe custodiar sus credenciales diligentemente y designar un Responsable del Sistema.',
-    ],
-  },
-  {
-    n: 6,
-    titulo: 'Uso aceptable y conductas prohibidas',
-    parrafos: [
-      'El Cliente se compromete a no usar el Software para fines ilícitos o fraudulentos. Queda prohibido aplicar ingeniería inversa, replicar, distribuir, alquilar o usar NubeRest para desarrollar productos competidores. El incumplimiento facultará al Proveedor a suspender el acceso o resolver el contrato sin reembolso.',
-    ],
-  },
-  {
-    n: 7,
-    titulo: 'Prestaciones del Proveedor',
-    parrafos: [
-      'Incluye: Soporte técnico en horario hábil, actualizaciones sin costo adicional, emisión de comprobantes (XML, PDF y validación) y almacenamiento por 1 año. Si el Cliente no obtiene el CDR de SUNAT en 4 días, deberá usar contingencia, sin responsabilidad para el Proveedor.',
-    ],
-  },
-  {
-    n: 8,
-    titulo: 'Servicios de Terceros',
-    parrafos: [
-      'NubeRest puede integrarse con terceros (OSE, pasarelas de pago, infraestructura en la nube). Estos se rigen por sus propios términos. El Proveedor no asume responsabilidad por la disponibilidad o fallas de dichos servicios de terceros.',
-    ],
-  },
-  {
-    n: 9,
-    titulo: 'Propiedad intelectual',
-    parrafos: [
-      'Todos los derechos sobre el Software, código, diseño e interfaces pertenecen a GEN AI LEGAL S.A.C.S. Se otorga al Cliente una licencia personal, no exclusiva, intransferible y revocable limitada a la vigencia del Contrato. El Cliente conserva la titularidad de los datos que ingresa al sistema.',
-    ],
-  },
-  {
-    n: 10,
-    titulo: 'Contraprestación, facturación y devoluciones',
-    parrafos: [
-      'Los precios incluyen IGV. El Cliente puede solicitar la devolución del 80% del importe pagado solo dentro de los primeros 5 días calendario. Vencido ese plazo o para costos de hardware, OSE e implementaciones ya ejecutadas, no procede ninguna devolución.',
-    ],
-  },
-  {
-    n: 11,
-    titulo: 'Vigencia, renovación y resolución',
-    parrafos: [
-      'Las contrataciones anuales tienen una vigencia mínima de 12 meses, renovándose automáticamente salvo aviso previo. El Acuerdo puede resolverse por incumplimiento o mutuo acuerdo, tras lo cual el Proveedor eliminará de forma segura los datos según la normativa aplicable.',
-    ],
-  },
-  {
-    n: 12,
-    titulo: 'Limitación de responsabilidad',
-    parrafos: [
-      'El Proveedor no responde por uso indebido, multas tributarias, decisiones basadas en el Software ni lucro cesante. La responsabilidad económica máxima del Proveedor queda limitada al importe efectivamente pagado por el Cliente en los últimos 6 meses.',
-    ],
-  },
-  {
-    n: 13,
-    titulo: 'Indemnidad',
-    parrafos: [
-      'El Cliente mantendrá indemne al Proveedor, directores y trabajadores frente a reclamos, multas o demandas que se originen por el incumplimiento de sus obligaciones tributarias, infracciones legales o el mal uso del Software.',
-    ],
-  },
-  {
-    n: 14,
-    titulo: 'Comunicaciones electrónicas',
-    parrafos: [
-      'Las notificaciones se realizarán vía correo electrónico, WhatsApp o alertas en el sistema. Se reputan válidamente recibidas. El canal oficial de soporte es <a href="mailto:ventas@nuberest.pe">ventas@nuberest.pe</a>.',
-    ],
-  },
-  {
-    n: 15,
-    titulo: 'Protección de datos personales',
-    parrafos: [
-      'El Proveedor es responsable del tratamiento de los datos del Cliente. Sin embargo, para los datos de los consumidores finales cargados en las facturas/boletas, el Cliente actúa como responsable y el Proveedor como encargado del tratamiento.',
-    ],
-  },
-  {
-    n: 16,
-    titulo: 'Cesión y cambio de control',
-    parrafos: [
-      'El Cliente no puede ceder su contrato sin autorización. El Proveedor sí podrá ceder libremente su posición contractual a una empresa vinculada o adquirente, manteniendo las condiciones pactadas con el Cliente.',
-    ],
-  },
-  {
-    n: 17,
-    titulo: 'Modificaciones al Acuerdo',
-    parrafos: [
-      'El Proveedor podrá modificar este Acuerdo comunicando con 45 días de anticipación para cambios esenciales y 15 días para cambios menores. El uso continuado del Software implica la aceptación tácita de los nuevos términos.',
-    ],
-  },
-  {
-    n: 18,
-    titulo: 'Disposiciones generales',
-    parrafos: [
-      'La invalidez de una cláusula no afecta a las demás. Este Acuerdo y el Contrato comercial constituyen el acuerdo íntegro entre las partes. Ninguna parte responde por caso fortuito o fuerza mayor.',
-    ],
-  },
-  {
-    n: 19,
-    titulo: 'Solución de controversias',
-    parrafos: [
-      'Las partes procurarán resolver controversias de buena fe en 30 días. De no haber acuerdo, se someterán a conciliación y posteriormente a la jurisdicción exclusiva de los jueces del distrito judicial de Huánuco.',
-    ],
-  },
-  {
-    n: 20,
-    titulo: 'Aceptación expresa',
-    parrafos: [
-      'Al usar el Software, el Cliente declara tener capacidad legal, haber comprendido el documento y acepta expresamente que NubeRest NO es un sistema contable (Cláusula 3). El Cliente asume toda responsabilidad sobre su cumplimiento tributario frente a SUNAT.',
-    ],
-  },
-];
+  mainEntity: {
+    '@type': 'TermsOfService',
+    name: 'Términos y Condiciones de Uso de Comercialo',
+    dateModified: '2026-08-03',
+    serviceType: 'Plataforma de gestión comercial para comercios en general',
+    provider: {
+      '@type': 'Organization',
+      name: 'GEN AI LEGAL S.A.C.S.',
+      taxID: '20614276534',
+      email: 'contacto@comercialo.pe',
+      telephone: '+51 935 289 770'
+    }
+  }
+};
 ---
 
-<Layout title="Términos y Condiciones | NubeRest">
-  <Header />
-  <main class="bg-white text-gray-800">
-    <section class="max-w-4xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
-      <header class="mb-10 border-b border-gray-200 pb-6">
-        <h1 class="text-3xl sm:text-4xl font-bold text-gray-900">Términos y Condiciones</h1>
-        <p class="mt-2 text-sm text-gray-600">NubeRest — GEN AI LEGAL S.A.C.S.</p>
-        <p class="mt-1 text-sm text-gray-500">Versión vigente desde: 02 de Febrero de 2026</p>
-      </header>
+<Layout title={title} description={description} pageSchema={termsSchema}>
+  <div class="min-h-[calc(100vh-112px)] flex flex-col">
+    <main class="flex-grow pt-12 lg:pt-16 pb-16 bg-background transition-colors duration-300" aria-labelledby="terms-heading">
+      <div class="container mx-auto px-4 max-w-5xl relative z-10">
+        <article class="bg-card border border-border shadow-card-hover rounded-3xl p-6 md:p-12">
+          <header class="mb-10 border-b border-border pb-8 text-center md:text-left">
+            <p class="text-xs font-bold text-[#00AD55] uppercase tracking-[0.2em] mb-3">Documento legal</p>
+            <h1 id="terms-heading" class="font-display text-3xl md:text-5xl font-extrabold text-foreground mb-4 uppercase tracking-tight">
+              Términos y <span class="text-[#00AD55]">Condiciones de Uso</span>
+            </h1>
+            <h2 class="text-lg md:text-xl font-bold text-foreground mb-3 italic opacity-90">Comercialo - GEN AI LEGAL S.A.C.S.</h2>
+            <p class="text-xs font-bold text-[#00AD55] uppercase tracking-widest">Versión vigente desde: {lastUpdated}</p>
+          </header>
 
-      <section class="mb-10 rounded-lg bg-gray-50 border border-gray-200 p-5 sm:p-6">
-        <h2 class="text-lg font-semibold text-gray-900 mb-3">Identificación y Naturaleza del documento</h2>
-        <p class="text-sm leading-relaxed"><strong>Operado por:</strong> GEN AI LEGAL S.A.C.S. (RUC: 20614276534). <strong>Marca comercial:</strong> NubeRest.</p>
-        <p class="text-sm leading-relaxed mt-2"><strong>Domicilio fiscal:</strong> Av. Enrique López Albújar Mza. J Lote 2, Amarilis, Huánuco, Perú.</p>
-        <p class="text-sm leading-relaxed mt-2"><strong>Correo:</strong> <a class="text-primary hover:underline" href="mailto:ventas@nuberest.pe">ventas@nuberest.pe</a> | <strong>WhatsApp:</strong> +51 935 289 770.</p>
-        <p class="text-sm leading-relaxed mt-3">Este documento constituye el Acuerdo de adhesión que regula el uso del Software. Al registrarse, el Cliente declara haber leído, comprendido y aceptado íntegramente estas disposiciones.</p>
-      </section>
+          <nav aria-label="Índice de cláusulas" class="mb-12 rounded-2xl border border-border bg-background/60 p-5 md:p-6">
+            <p class="font-bold text-foreground mb-4">Contenido</p>
+            <ol class="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-2 text-sm text-muted-foreground">
+              {Array.from({ length: 20 }, (_, i) => i + 1).map((n) => (
+                <li><a href={`#clausula-${n}`} class="hover:text-[#00AD55] transition-colors">Cláusula {n}</a></li>
+              ))}
+            </ol>
+          </nav>
 
-      <div class="space-y-8">
-        {secciones.map((s) => (
-          <article id={`clausula-${s.n}`} class="scroll-mt-24">
-            <h2 class="text-xl sm:text-2xl font-semibold text-gray-900 mb-3">
-              {s.n}. {s.titulo}
-            </h2>
-            {s.parrafos.map((p) => (
-              <p class="text-base leading-relaxed text-gray-700 mb-3" set:html={p} />
-            ))}
-            {s.lista && (
-              <ul class="list-disc pl-6 space-y-1 text-gray-700">
-                {s.lista.map((li) => (
-                  <li set:html={li} />
-                ))}
-              </ul>
-            )}
-          </article>
-        ))}
+          <div class="space-y-8">
+<h2 class="text-xl md:text-2xl font-bold text-foreground pt-2">Identificación del Proveedor</h2>
+<p class="text-muted-foreground leading-relaxed text-sm md:text-base text-justify">La presente plataforma es operada por:</p>
+<ul class="space-y-2.5 text-muted-foreground">
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>Razón social: GEN AI LEGAL S.A.C.S.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>RUC: 20614276534</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>Marca comercial: Comercialo (en adelante, “el Software” o “la Plataforma”)</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>Domicilio fiscal: Av. Enrique López Albújar Mza. J Lote 2, Amarilis, Huánuco, Perú</span></li>
+<!--email_off--><li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>Correo de soporte: <a href="mailto:contacto@comercialo.pe" class="font-semibold text-[#00AD55] hover:underline">contacto@comercialo.pe</a></span></li><!--/email_off-->
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>WhatsApp: +51 935 289 770</span></li>
+</ul>
+<h2 class="text-xl md:text-2xl font-bold text-foreground pt-2">Naturaleza del documento</h2>
+<p class="text-muted-foreground leading-relaxed text-sm md:text-base text-justify">Este documento constituye el Acuerdo de adhesión que regula el uso del Software Comercialo, marca comercial registrada y operada por GEN AI LEGAL S.A.C.S. (en adelante, “el Proveedor”). Al registrarse o utilizar el Software, la persona contratante (en adelante, “el Cliente”), por sí o en representación de la persona jurídica que contrata, declara haber leído, comprendido y aceptado íntegramente las disposiciones aquí contenidas. Estos Términos y Condiciones, conjuntamente con la Política de Privacidad y el Contrato comercial específico que se suscriba entre las partes, conforman la totalidad del acuerdo aplicable a la prestación del Software. Si el Cliente no está conforme con cualquier disposición del presente documento, debe abstenerse de instalar, registrarse o utilizar el Software.</p>
+<section id="clausula-1" class="scroll-mt-28 group">
+  <h2 class="text-xl md:text-2xl font-bold mb-5 text-foreground flex items-start gap-3 transition-colors group-hover:text-[#00AD55]">
+    <span class="flex items-center justify-center w-9 h-9 rounded-xl bg-[#00AD55]/10 text-[#00AD55] text-sm font-mono shrink-0">1</span>
+    <span>Glosario aplicable</span>
+  </h2>
+  <div class="md:pl-12 md:border-l-2 border-border group-hover:border-[#00AD55]/30 transition-colors space-y-4">
+<p class="text-muted-foreground leading-relaxed text-sm md:text-base text-justify">Para la correcta interpretación del presente Acuerdo, los términos que se utilicen con su primera letra en mayúscula tendrán el significado que a continuación se les asigna. Las definiciones en singular incluyen el plural y viceversa, salvo que del contexto se desprenda lo contrario:</p>
+<ul class="space-y-2.5 text-muted-foreground">
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>Acuerdo: el presente documento de Términos y Condiciones, junto con sus actualizaciones futuras.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>Cliente: persona natural con negocio o persona jurídica que contrata el Software para apoyar la gestión de una actividad comercial de venta de productos o prestación de servicios, sea bajo modalidad mensual o anual.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>Contrato comercial: el contrato escrito o digital que el Cliente suscribe con el Proveedor para la contratación específica del Software, donde se detallan plan, importe, vigencia, hardware adicional y condiciones particulares.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>Consumidor final: la persona natural que adquiere productos o servicios del Cliente y a quien se le emite el comprobante electrónico generado por el Software.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>Comprobante electrónico: documento tributario digital (factura, boleta, nota de crédito, nota de débito, guía de remisión, comunicación de baja) emitido conforme a la normativa de SUNAT.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>Datos del Cliente: toda la información que el Cliente registra, carga, ingresa o gestiona dentro del Software, incluyendo datos de su empresa, trabajadores, consumidores finales, proveedores, productos, servicios, precios, existencias, transacciones y configuraciones tributarias.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>Datos personales: toda información sobre una persona natural que la identifica o la hace identificable.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>Negocio o establecimiento: el espacio físico o virtual en el que el Cliente desarrolla actividades de comercialización de productos o prestación de servicios, cualquiera sea su especialidad o tamaño.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>Servicios de Terceros: servicios complementarios proporcionados por terceros independientes que se integran o vinculan al Software, tales como Operadores de Servicios Electrónicos (OSE), pasarelas de pagos, servicios de mensajería, infraestructura en la nube u otros.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>Sistema contable: software, hoja de cálculo o registro independiente del Software donde el Cliente o su contador registra los asientos, libros y reportes contables exigidos por la normativa tributaria.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>Proveedor: GEN AI LEGAL S.A.C.S., titular del Software Comercialo.</span></li>
+</ul>
+  </div>
+</section>
+<section id="clausula-2" class="scroll-mt-28 group">
+  <h2 class="text-xl md:text-2xl font-bold mb-5 text-foreground flex items-start gap-3 transition-colors group-hover:text-[#00AD55]">
+    <span class="flex items-center justify-center w-9 h-9 rounded-xl bg-[#00AD55]/10 text-[#00AD55] text-sm font-mono shrink-0">2</span>
+    <span>Naturaleza y alcance del Software</span>
+  </h2>
+  <div class="md:pl-12 md:border-l-2 border-border group-hover:border-[#00AD55]/30 transition-colors space-y-4">
+<h3 class="text-lg font-bold text-foreground pt-2"><span class="text-[#00AD55] mr-2">2.1.</span>Qué es Comercialo</h3>
+<p class="text-muted-foreground leading-relaxed text-sm md:text-base text-justify">Comercialo es una plataforma tecnológica de gestión comercial dirigida a comercios en general, emprendimientos y empresas que venden productos o prestan servicios. Permite organizar operaciones de venta, facturación electrónica, clientes, inventarios, caja, créditos, compras, proveedores y reportes, de acuerdo con el plan contratado y las funciones habilitadas. Sus principales módulos son:</p>
+<ul class="space-y-2.5 text-muted-foreground">
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span><strong>Gestión de Ventas y Facturación (CPE SUNAT):</strong> Punto de venta (POS) para la comercialización de productos, servicios y conceptos. Permite la emisión y envío a SUNAT de comprobantes electrónicos (facturas, boletas, notas de crédito y notas de débito), así como el monitoreo del estado de dichos documentos.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span><strong>Gestión Comercial y de Clientes:</strong> Registro y clasificación de clientes, seguimiento de operaciones comerciales, elaboración de cotizaciones y administración de catálogos de productos o servicios.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span><strong>Control de Inventario y Almacenes:</strong> Administración integral del catálogo (productos, servicios, categorías, marcas, grupos y subgrupos). Incluye el registro de movimientos de inventario (ingresos, salidas y traspasos entre almacenes) para un control exacto del stock.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span><strong>Gestión Financiera de Caja y Créditos:</strong> Administración del flujo de caja por cajero (aperturas, cierres, historial y movimientos de dinero), así como el seguimiento de Cuentas por Cobrar (reportes de deuda y cobranzas) y Cuentas por Pagar.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span><strong>Gestión de Compras:</strong> Registro de adquisiciones, control de gastos asociados y administración del directorio de proveedores.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span><strong>Guías de Remisión Electrónica:</strong> Emisión de guías de remisión para el despacho de mercadería, incluyendo el registro de transportistas, conductores y vehículos.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span><strong>Reportes Gerenciales y Configuraciones:</strong> Generación de métricas de negocio (ingresos, salidas, compras, ventas, utilidades, inventario físico y reportes operativos), además de la gestión de roles de usuarios y la configuración general del negocio.</span></li>
+</ul>
+<h3 class="text-lg font-bold text-foreground pt-2"><span class="text-[#00AD55] mr-2">2.2.</span>Lo que el Software no es</h3>
+<p class="text-muted-foreground leading-relaxed text-sm md:text-base text-justify">Para evitar interpretaciones erróneas sobre el alcance funcional, el Cliente reconoce y acepta expresamente que Comercialo:</p>
+<ul class="space-y-2.5 text-muted-foreground">
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span><strong>No es un sistema de contabilidad.</strong> Aunque provee un reporte denominado “Contabilidad Estándar”, no genera asientos contables, no produce libros contables ni registros electrónicos oficiales en los términos exigidos por la normativa tributaria vigente, no aplica las dinámicas del Plan Contable General Empresarial ni elabora estados financieros definitivos.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span><strong>No reemplaza al contador.</strong> El Cliente conserva la obligación indelegable de contratar y mantener un contador colegiado, así como un sistema contable independiente (o el mecanismo que el Cliente considere) para la correcta liquidación de sus impuestos.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span><strong>No emite opiniones tributarias, financieras ni legales.</strong> La data y los reportes que el Software genera son herramientas e insumos operativos para facilitar la administración del negocio.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span><strong>No constituye un servicio integral de cumplimiento tributario.</strong> La correcta determinación, declaración y pago de tributos ante la SUNAT son responsabilidades exclusivas del Cliente.</span></li>
+</ul>
+<h3 class="text-lg font-bold text-foreground pt-2"><span class="text-[#00AD55] mr-2">2.3.</span>Software entregado “tal cual”</h3>
+<p class="text-muted-foreground leading-relaxed text-sm md:text-base text-justify">El Software se proporciona en el estado en que se encuentra. El Proveedor realiza esfuerzos razonables para que las funcionalidades cumplan con su propósito, pero no garantiza que: (i) la operación sea ininterrumpida o libre de errores, (ii) las funcionalidades cubran todas las necesidades particulares del Cliente, (iii) los reportes operativos sean completamente exactos en todos los escenarios, (iv) las funcionalidades existentes se mantengan permanentemente disponibles. Con la evolución del producto, algunas funcionalidades podrán incorporarse, modificarse o retirarse.</p>
+  </div>
+</section>
+<section id="clausula-3" class="scroll-mt-28 group">
+  <h2 class="text-xl md:text-2xl font-bold mb-5 text-foreground flex items-start gap-3 transition-colors group-hover:text-[#00AD55]">
+    <span class="flex items-center justify-center w-9 h-9 rounded-xl bg-[#00AD55]/10 text-[#00AD55] text-sm font-mono shrink-0">3</span>
+    <span>Sistema de Control Operativo no Contable</span>
+  </h2>
+  <div class="md:pl-12 md:border-l-2 border-border group-hover:border-[#00AD55]/30 transition-colors space-y-4">
+<p class="text-muted-foreground leading-relaxed text-sm md:text-base text-justify">Esta cláusula es de aceptación expresa por parte del Cliente y constituye condición esencial para la contratación del Software.</p>
+<h3 class="text-lg font-bold text-foreground pt-2"><span class="text-[#00AD55] mr-2">3.1.</span>Marco normativo aplicable</h3>
+<p class="text-muted-foreground leading-relaxed text-sm md:text-base text-justify">El numeral 5 del artículo 87 del Texto Único Ordenado del Código Tributario, modificado por el Decreto Legislativo N° 1523, y el numeral 13.1 del artículo 13 del Decreto Supremo N° 303-2025-EF, establecen la obligación del deudor tributario de proporcionar a la SUNAT los perfiles de acceso al “sistema de procesamiento electrónico de datos con el que dicho deudor tributario registra sus operaciones contables”, siempre que el referido sistema cuente con tal opción.</p>
+<h3 class="text-lg font-bold text-foreground pt-2"><span class="text-[#00AD55] mr-2">3.2.</span>Comercialo no califica como sistema contable</h3>
+<p class="text-muted-foreground leading-relaxed text-sm md:text-base text-justify">El Cliente declara conocer y aceptar que Comercialo no califica como un sistema de procesamiento electrónico de datos con el que el deudor tributario registra sus operaciones contables, dado que:</p>
+<ul class="space-y-2.5 text-muted-foreground">
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>No genera asientos contables ni libros contables electrónicos.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>No aplica las dinámicas contables del Plan Contable General Empresarial.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>No produce los reportes contables exigidos por la normativa tributaria.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>Sus funcionalidades se limitan al control operativo del establecimiento (facturación, kardex, caja, ventas y gastos), las cuales son distintas y previas al registro contable propiamente dicho que se realiza en el sistema contable del cliente.</span></li>
+</ul>
+<h3 class="text-lg font-bold text-foreground pt-2"><span class="text-[#00AD55] mr-2">3.3.</span>Sistema contable independiente del Cliente</h3>
+<p class="text-muted-foreground leading-relaxed text-sm md:text-base text-justify">El Cliente declara expresamente que cuenta con un sistema contable propio y separado del Software (sea un software contable propio, contratado a un tercero, llevado por su contador externo o cualquier otro medio admitido por la normativa), donde efectivamente registra sus operaciones contables. Es ese sistema contable —y no Comercialo— el que constituye el “sistema de procesamiento electrónico de datos” al que se refiere el numeral 5 del artículo 87 del Código Tributario y el artículo 13 del Decreto Supremo N° 303-2025-EF. Importante: El Cliente exime expresamente al Proveedor de la obligación de habilitar accesos directos de SUNAT al Software. El Cliente, en su condición de contribuyente, asume íntegramente la responsabilidad de atender los requerimientos tributarios mediante su propio sistema contable y mediante la entrega de los reportes operativos que Comercialo le permite generar.</p>
+<h3 class="text-lg font-bold text-foreground pt-2"><span class="text-[#00AD55] mr-2">3.4.</span>Cooperación operativa frente a requerimientos</h3>
+<p class="text-muted-foreground leading-relaxed text-sm md:text-base text-justify">Sin perjuicio de lo anterior, ante un requerimiento de SUNAT que involucre información contenida en el Software, el Proveedor brindará al Cliente, sin costo adicional, soporte razonable para generar y descargar los reportes operativos disponibles, exportar los XML y PDF de los comprobantes electrónicos, y entregar al Cliente la información que este, por sí mismo, pueda transmitir a SUNAT. Los servicios de soporte adicionales (consultoría tributaria, acompañamiento en fiscalización, integraciones especiales) se rigen por presupuestos separados.</p>
+  </div>
+</section>
+<section id="clausula-4" class="scroll-mt-28 group">
+  <h2 class="text-xl md:text-2xl font-bold mb-5 text-foreground flex items-start gap-3 transition-colors group-hover:text-[#00AD55]">
+    <span class="flex items-center justify-center w-9 h-9 rounded-xl bg-[#00AD55]/10 text-[#00AD55] text-sm font-mono shrink-0">4</span>
+    <span>Responsabilidad exclusiva del Cliente sobre los datos cargados</span>
+  </h2>
+  <div class="md:pl-12 md:border-l-2 border-border group-hover:border-[#00AD55]/30 transition-colors space-y-4">
+<h3 class="text-lg font-bold text-foreground pt-2"><span class="text-[#00AD55] mr-2">4.1.</span>Principio general</h3>
+<p class="text-muted-foreground leading-relaxed text-sm md:text-base text-justify">El Cliente es el único responsable, frente a terceros y frente a las autoridades, de toda la información que registra, carga, ingresa, modifica o elimina dentro del Software. El Proveedor actúa únicamente como intermediario tecnológico que brinda la infraestructura, sin intervenir en la veracidad, exactitud, oportunidad o legalidad de los datos que el Cliente decida ingresar.</p>
+<h3 class="text-lg font-bold text-foreground pt-2"><span class="text-[#00AD55] mr-2">4.2.</span>Garantía de veracidad</h3>
+<p class="text-muted-foreground leading-relaxed text-sm md:text-base text-justify">El Cliente garantiza que toda la información que carga en el Software es veraz, exacta, completa, actualizada y lícitamente sustentada, incluyendo:</p>
+<ul class="space-y-2.5 text-muted-foreground">
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>Datos de su empresa: RUC, razón social, domicilio fiscal, datos de representación.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>Datos de los consumidores finales a quienes emite comprobantes electrónicos.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>Datos de sus proveedores y trabajadores.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>Información del catálogo comercial: productos, servicios, categorías, marcas, precios y kárdex (movimientos de ingreso, salida y traspaso de inventario).</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>Información de transacciones: ventas, compras, gastos, movimientos de caja.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>Información tributaria: regímenes, series, numeración de comprobantes, configuración de impuestos. Cualquier inexactitud, falsedad, omisión o desactualización es de exclusiva responsabilidad del Cliente, sin que el Proveedor tenga obligación de fiscalizar la información cargada.</span></li>
+</ul>
+<h3 class="text-lg font-bold text-foreground pt-2"><span class="text-[#00AD55] mr-2">4.3.</span>Cumplimiento tributario y obligaciones formales</h3>
+<ul class="space-y-2.5 text-muted-foreground">
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>La determinación, declaración, pago y rectificación de tributos son obligaciones exclusivas del Cliente.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>La verificación de la correcta validación de los comprobantes electrónicos ante SUNAT, dentro del plazo de cuatro (4) días hábiles posteriores a la emisión, corresponde al Cliente; para ello Comercialo brinda un panel donde el cliente puede verificar y monitorear los comprobantes y sus estados.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>El Proveedor no es responsable por sanciones, multas, intereses moratorios o medidas cautelares que SUNAT, INDECOPI, gobiernos locales u otras autoridades impongan al Cliente como consecuencia del registro inexacto de información, omisiones, errores de configuración o uso indebido del Software.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>El Proveedor tampoco es responsable por las consecuencias derivadas de la falta de declaración, declaración fuera de plazo, declaración incompleta o errónea de los comprobantes ante SUNAT por parte del Cliente. Deslinde de responsabilidad: GEN AI LEGAL S.A.C.S., titular de la marca Comercialo, se desliga expresamente de toda responsabilidad por la información que el Cliente registra, carga o gestiona dentro del Software. El Cliente, en su condición de contribuyente y de titular de su negocio, asume íntegramente la responsabilidad por la veracidad, oportunidad y legalidad de dicha información, así como por las consecuencias tributarias, civiles, administrativas o de cualquier otra naturaleza que se deriven de ella.</span></li>
+</ul>
+<h3 class="text-lg font-bold text-foreground pt-2"><span class="text-[#00AD55] mr-2">4.4.</span>Datos personales de terceros</h3>
+<p class="text-muted-foreground leading-relaxed text-sm md:text-base text-justify">Cuando el Cliente cargue datos personales de sus consumidores finales, proveedores u otros terceros en el Software:</p>
+<ul class="space-y-2.5 text-muted-foreground">
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>El Cliente actúa como responsable del tratamiento, y debe contar con la base legal o el consentimiento que justifique dicho tratamiento.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>El Proveedor actúa como encargado del tratamiento, por cuenta del Cliente.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>El Cliente debe inscribir su banco de datos personales ante la Autoridad Nacional de Protección de Datos Personales cuando corresponda, y atender las solicitudes de derechos ARCO de los titulares.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>El Proveedor no responde por reclamos de terceros derivados de la carga indebida de datos personales por parte del Cliente.</span></li>
+</ul>
+  </div>
+</section>
+<section id="clausula-5" class="scroll-mt-28 group">
+  <h2 class="text-xl md:text-2xl font-bold mb-5 text-foreground flex items-start gap-3 transition-colors group-hover:text-[#00AD55]">
+    <span class="flex items-center justify-center w-9 h-9 rounded-xl bg-[#00AD55]/10 text-[#00AD55] text-sm font-mono shrink-0">5</span>
+    <span>Requisitos técnicos y administración de cuenta</span>
+  </h2>
+  <div class="md:pl-12 md:border-l-2 border-border group-hover:border-[#00AD55]/30 transition-colors space-y-4">
+<h3 class="text-lg font-bold text-foreground pt-2"><span class="text-[#00AD55] mr-2">5.1.</span>Requisitos técnicos</h3>
+<p class="text-muted-foreground leading-relaxed text-sm md:text-base text-justify">El uso del Software depende de equipos y dispositivos conectados a internet, los cuales deben ser provistos y mantenidos por cuenta del Cliente. Son responsabilidad del Cliente:</p>
+<ul class="space-y-2.5 text-muted-foreground">
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>La conexión a internet estable, con ancho de banda suficiente para la operación.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>Los equipos informáticos en correcto funcionamiento (computadoras, impresoras térmicas, dispositivos POS, tablets).</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>Los navegadores y sistemas operativos actualizados a versiones compatibles con el Software.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>La protección antivirus y los respaldos locales que el Cliente considere oportunos.</span></li>
+</ul>
+<h3 class="text-lg font-bold text-foreground pt-2"><span class="text-[#00AD55] mr-2">5.2.</span>Apertura de la cuenta</h3>
+<p class="text-muted-foreground leading-relaxed text-sm md:text-base text-justify">Al momento del registro, el Cliente debe proporcionar datos veraces y completos, en particular: razón social, RUC, domicilio fiscal, datos del representante legal, y nombres, DNI o documento equivalente, correo y teléfono de la persona natural designada como Responsable del Sistema dentro de su organización.</p>
+<h3 class="text-lg font-bold text-foreground pt-2"><span class="text-[#00AD55] mr-2">5.3.</span>Procedimiento de inicio del servicio</h3>
+<p class="text-muted-foreground leading-relaxed text-sm md:text-base text-justify">El proceso de alta y activación del Software se desarrolla en los siguientes pasos:</p>
+<ul class="space-y-2.5 text-muted-foreground">
+<!--email_off--><li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>Solicitud inicial al canal <a href="mailto:contacto@comercialo.pe" class="font-semibold text-[#00AD55] hover:underline">contacto@comercialo.pe</a> o por WhatsApp al 935 289 770.</span></li><!--/email_off-->
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>Suscripción del Contrato comercial específico (mensual o anual) y entrega de la constancia del primer pago.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>Designación formal del Responsable del Sistema con sus datos de identificación y contacto.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>Activación de la cuenta del Cliente en el portal de SUNAT en modo producción.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>Configuración inicial del Software por parte del equipo del Proveedor.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>Capacitación inicial al equipo del Cliente. Punto de inicio de la vigencia: a efectos contractuales, la vigencia del Software comienza a contar desde la fecha en que la cuenta del Cliente se encuentre activa en modo producción. Cualquier demora atribuible al Cliente (datos faltantes, falta de pago, falta de habilitación SUNAT) no posterga el inicio de la vigencia.</span></li>
+</ul>
+<h3 class="text-lg font-bold text-foreground pt-2"><span class="text-[#00AD55] mr-2">5.4.</span>Responsable del Sistema</h3>
+<p class="text-muted-foreground leading-relaxed text-sm md:text-base text-justify">El Cliente debe designar una persona natural como Responsable del Sistema, quien será el punto de contacto operativo con el Proveedor. Cualquier cambio del Responsable del Sistema debe ser comunicado oportunamente al Proveedor mediante correo electrónico. Las acciones ejecutadas con las credenciales asignadas a dicho responsable se reputan como realizadas por el Cliente.</p>
+<h3 class="text-lg font-bold text-foreground pt-2"><span class="text-[#00AD55] mr-2">5.5.</span>Custodia de credenciales</h3>
+<!--email_off--><p class="text-muted-foreground leading-relaxed text-sm md:text-base text-justify">El Cliente es responsable de la confidencialidad de las credenciales (usuario y contraseña). Toda operación realizada con dichas credenciales se considera ejecutada por el Cliente. Cualquier sospecha de uso no autorizado debe comunicarse de inmediato al canal <a href="mailto:contacto@comercialo.pe" class="font-semibold text-[#00AD55] hover:underline">contacto@comercialo.pe</a>.</p><!--/email_off-->
+<h3 class="text-lg font-bold text-foreground pt-2"><span class="text-[#00AD55] mr-2">5.6.</span>Verificación de identidad</h3>
+<p class="text-muted-foreground leading-relaxed text-sm md:text-base text-justify">El Proveedor podrá utilizar medios razonables para confirmar la identidad del Cliente y verificar el cumplimiento de los requisitos de uso, sin que ello constituya una obligación. El Proveedor podrá rechazar o cancelar registros cuando detecte información presuntamente falsa, fraudulenta o inconsistente.</p>
+  </div>
+</section>
+<section id="clausula-6" class="scroll-mt-28 group">
+  <h2 class="text-xl md:text-2xl font-bold mb-5 text-foreground flex items-start gap-3 transition-colors group-hover:text-[#00AD55]">
+    <span class="flex items-center justify-center w-9 h-9 rounded-xl bg-[#00AD55]/10 text-[#00AD55] text-sm font-mono shrink-0">6</span>
+    <span>Uso aceptable y conductas prohibidas</span>
+  </h2>
+  <div class="md:pl-12 md:border-l-2 border-border group-hover:border-[#00AD55]/30 transition-colors space-y-4">
+<h3 class="text-lg font-bold text-foreground pt-2"><span class="text-[#00AD55] mr-2">6.1.</span>Uso conforme a su finalidad</h3>
+<p class="text-muted-foreground leading-relaxed text-sm md:text-base text-justify">El Cliente se compromete a utilizar el Software únicamente para los fines establecidos en el presente Acuerdo y en el Contrato comercial específico, dentro de los límites de la legislación aplicable, la moral y el orden público.</p>
+<h3 class="text-lg font-bold text-foreground pt-2"><span class="text-[#00AD55] mr-2">6.2.</span>Conductas expresamente prohibidas</h3>
+<p class="text-muted-foreground leading-relaxed text-sm md:text-base text-justify">El Cliente se obliga a no realizar, por sí ni a través de terceros, ninguna de las siguientes conductas:</p>
+<ul class="space-y-2.5 text-muted-foreground">
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>Utilizar el Software para fines ilícitos, fraudulentos o que vulneren derechos de terceros.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>Cargar contenido ofensivo, injurioso, falso, difamatorio o que infrinja derechos de propiedad intelectual ajenos.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>Replicar, copiar, distribuir, sublicenciar, vender, alquilar, ceder o explotar comercialmente el Software o sus componentes.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>Realizar ingeniería inversa, descompilación, desensamblado, descifrado u otros mecanismos para acceder al código fuente.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>Probar la vulnerabilidad del Software, intentar quebrantar sus medidas de seguridad o de autenticación, ni introducir virus, malware, gusanos, troyanos, ransomware u otros programas dañinos.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>Realizar técnicas de scraping, crawling automatizado, minería de datos masiva o extracción no autorizada de información.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>Falsificar direcciones IP, suplantar identidad, ocultar o alterar la autoría de las operaciones.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>Utilizar el Software con dispositivos incompatibles, no autorizados o modificados para alterar el comportamiento esperado.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>Emplear el Software para desarrollar, operar o facilitar productos competidores o servicios similares.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>Compartir, ceder o transferir las credenciales o el acceso a personas no autorizadas dentro de la organización del Cliente.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>Utilizar marcas, logotipos o denominaciones del Proveedor sin autorización escrita.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>Cualquier otra conducta que pueda dañar, sobrecargar o degradar el funcionamiento normal del Software o afectar la experiencia de otros usuarios.</span></li>
+</ul>
+<h3 class="text-lg font-bold text-foreground pt-2"><span class="text-[#00AD55] mr-2">6.3.</span>Consecuencias del incumplimiento</h3>
+<p class="text-muted-foreground leading-relaxed text-sm md:text-base text-justify">La verificación, indicio o sospecha razonable de cualquier conducta prohibida facultará al Proveedor, a su criterio y según la gravedad o reincidencia, a:</p>
+<ul class="space-y-2.5 text-muted-foreground">
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>Emitir aviso al Cliente.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>Suspender temporalmente el acceso al Software.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>Resolver el Acuerdo y el Contrato comercial específico, sin derecho a reembolso.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>Iniciar acciones legales civiles o penales, así como reclamar la indemnización correspondiente.</span></li>
+</ul>
+  </div>
+</section>
+<section id="clausula-7" class="scroll-mt-28 group">
+  <h2 class="text-xl md:text-2xl font-bold mb-5 text-foreground flex items-start gap-3 transition-colors group-hover:text-[#00AD55]">
+    <span class="flex items-center justify-center w-9 h-9 rounded-xl bg-[#00AD55]/10 text-[#00AD55] text-sm font-mono shrink-0">7</span>
+    <span>Prestaciones del Proveedor</span>
+  </h2>
+  <div class="md:pl-12 md:border-l-2 border-border group-hover:border-[#00AD55]/30 transition-colors space-y-4">
+<div class="overflow-x-auto rounded-2xl border border-border"><table class="w-full min-w-[640px] text-sm"><thead class="bg-[#00AD55]/10"><tr><th class="px-5 py-4 text-left font-bold text-foreground">Prestación</th><th class="px-5 py-4 text-left font-bold text-foreground">Alcance y condiciones</th></tr></thead><tbody class="divide-y divide-border">
+<tr class="align-top"><th scope="row" class="px-5 py-4 text-left font-semibold text-foreground bg-muted/20">Soporte técnico</th><td class="px-5 py-4 text-muted-foreground leading-relaxed">Lunes a viernes de 9:00 a 18:00 horas y sábados de 9:00 a 13:00 horas (hora peruana), por ticket y WhatsApp, excluyendo feriados no laborables. Los tiempos de respuesta se ajustan según la criticidad del incidente.</td></tr>
+<tr class="align-top"><th scope="row" class="px-5 py-4 text-left font-semibold text-foreground bg-muted/20">Actualizaciones</th><td class="px-5 py-4 text-muted-foreground leading-relaxed">Actualizaciones funcionales y correctivas incluidas en la suscripción, sin costo adicional. El Proveedor anuncia mantenimientos programados con anticipación cuando sea viable.</td></tr>
+<tr class="align-top"><th scope="row" class="px-5 py-4 text-left font-semibold text-foreground bg-muted/20">Emisión de comprobantes</th><td class="px-5 py-4 text-muted-foreground leading-relaxed">Generación del XML, validación con SUNAT y representación impresa estándar (PDF). El formato es el estándar publicado; las personalizaciones del PDF o el XML se cotizan por separado.</td></tr>
+<tr class="align-top"><th scope="row" class="px-5 py-4 text-left font-semibold text-foreground bg-muted/20">Almacenamiento</th><td class="px-5 py-4 text-muted-foreground leading-relaxed">Almacenamiento de XML y PDF por un (1) año contado desde la fecha de inicio del Contrato comercial. Vencido dicho plazo, los comprobantes deben ser descargados y respaldados por el Cliente.</td></tr>
+<tr class="align-top"><th scope="row" class="px-5 py-4 text-left font-semibold text-foreground bg-muted/20">Entrega electrónica de comprobantes</th><td class="px-5 py-4 text-muted-foreground leading-relaxed">La entrega masiva o automatizada de comprobantes electrónicos por correo o medios digitales hacia los consumidores finales del Cliente constituye un servicio adicional sujeto a cotización separada.</td></tr>
+<tr class="align-top"><th scope="row" class="px-5 py-4 text-left font-semibold text-foreground bg-muted/20">Capacitación inicial</th><td class="px-5 py-4 text-muted-foreground leading-relaxed">Capacitación al equipo del Cliente al momento de la implementación. Capacitaciones posteriores a nuevos usuarios son responsabilidad del Cliente.</td></tr>
+<tr class="align-top"><th scope="row" class="px-5 py-4 text-left font-semibold text-foreground bg-muted/20">Visitas presenciales</th><td class="px-5 py-4 text-muted-foreground leading-relaxed">Si el Cliente requiere visita presencial (capacitaciones adicionales, reinstalación, soporte en sitio), se cobra el sobrecosto correspondiente y los viáticos asociados.</td></tr>
+</tbody></table></div>
+<h3 class="text-lg font-bold text-foreground pt-2"><span class="text-[#00AD55] mr-2">7.1.</span>CDR de SUNAT</h3>
+<p class="text-muted-foreground leading-relaxed text-sm md:text-base text-justify">Cuando el Cliente no logre obtener de SUNAT la Constancia de Recepción (CDR) de un comprobante electrónico antes del vencimiento del plazo de cuatro (4) días hábiles posteriores a la emisión, el Cliente deberá considerar emitir el comprobante por otro medio para no incumplir con sus obligaciones tributarias. Esta circunstancia no genera responsabilidad para el Proveedor.</p>
+<h3 class="text-lg font-bold text-foreground pt-2"><span class="text-[#00AD55] mr-2">7.2.</span>Disponibilidad del Software</h3>
+<p class="text-muted-foreground leading-relaxed text-sm md:text-base text-justify">El Proveedor realiza esfuerzos razonables por mantener una alta disponibilidad del Software, alojando en infraestructura de nube de clase empresarial. No obstante, no garantiza la disponibilidad ininterrumpida ni infalible y no será responsable por suspensiones derivadas de mantenimientos programados, fallas de proveedores de infraestructura, eventos de fuerza mayor o caso fortuito.</p>
+  </div>
+</section>
+<section id="clausula-8" class="scroll-mt-28 group">
+  <h2 class="text-xl md:text-2xl font-bold mb-5 text-foreground flex items-start gap-3 transition-colors group-hover:text-[#00AD55]">
+    <span class="flex items-center justify-center w-9 h-9 rounded-xl bg-[#00AD55]/10 text-[#00AD55] text-sm font-mono shrink-0">8</span>
+    <span>Servicios de Terceros</span>
+  </h2>
+  <div class="md:pl-12 md:border-l-2 border-border group-hover:border-[#00AD55]/30 transition-colors space-y-4">
+<p class="text-muted-foreground leading-relaxed text-sm md:text-base text-justify">El funcionamiento del Software puede integrarse con Servicios de Terceros que son operados por entidades independientes del Proveedor. Estos servicios pueden incluir, sin limitación:</p>
+<ul class="space-y-2.5 text-muted-foreground">
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>Operadores de Servicios Electrónicos (OSE) cuando el Cliente esté obligado a validar comprobantes mediante un OSE.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>Pasarelas de pago para el procesamiento de cobros.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>Servicios de mensajería instantánea o correo electrónico para notificaciones.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>Proveedores de infraestructura en la nube y respaldos.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>Comprar Certificado digital tributario cuando está por vencerse. El Cliente reconoce y acepta que los Servicios de Terceros se rigen por sus propios términos y políticas de privacidad, los cuales son ajenos a este Acuerdo. El Proveedor no controla, no garantiza ni asume responsabilidad por la disponibilidad, calidad, oportunidad o seguridad de los Servicios de Terceros, ni por las consecuencias derivadas de su uso, falla o interrupción. Cuando el Cliente esté obligado a validar sus comprobantes mediante un OSE, el cobro mensual por dicho concepto se factura por separado y debe ser informado por el Cliente al Proveedor.</span></li>
+</ul>
+  </div>
+</section>
+<section id="clausula-9" class="scroll-mt-28 group">
+  <h2 class="text-xl md:text-2xl font-bold mb-5 text-foreground flex items-start gap-3 transition-colors group-hover:text-[#00AD55]">
+    <span class="flex items-center justify-center w-9 h-9 rounded-xl bg-[#00AD55]/10 text-[#00AD55] text-sm font-mono shrink-0">9</span>
+    <span>Propiedad intelectual</span>
+  </h2>
+  <div class="md:pl-12 md:border-l-2 border-border group-hover:border-[#00AD55]/30 transition-colors space-y-4">
+<h3 class="text-lg font-bold text-foreground pt-2"><span class="text-[#00AD55] mr-2">9.1.</span>Titularidad</h3>
+<p class="text-muted-foreground leading-relaxed text-sm md:text-base text-justify">Todos los derechos de propiedad intelectual e industrial sobre el Software, incluyendo —sin limitación— su código fuente, diseño visual, estructura de bases de datos, interfaces, marcas, logotipos, eslóganes, manuales, documentación técnica, plantillas de comprobantes y cualquier otro componente, son de propiedad exclusiva del Proveedor o de sus licenciantes, y se encuentran protegidos por las leyes peruanas y los tratados internacionales de propiedad intelectual.</p>
+<h3 class="text-lg font-bold text-foreground pt-2"><span class="text-[#00AD55] mr-2">9.2.</span>Licencia de uso</h3>
+<p class="text-muted-foreground leading-relaxed text-sm md:text-base text-justify">La contratación del Software otorga al Cliente una licencia personal, limitada, no exclusiva, intransferible y revocable, válida únicamente durante la vigencia del Contrato comercial específico y para los fines previstos. Esta licencia no transfiere ni implica transferencia de derecho de propiedad alguno sobre el Software.</p>
+<h3 class="text-lg font-bold text-foreground pt-2"><span class="text-[#00AD55] mr-2">9.3.</span>Restricciones expresas</h3>
+<p class="text-muted-foreground leading-relaxed text-sm md:text-base text-justify">Salvo autorización previa y escrita del Proveedor, el Cliente no podrá:</p>
+<ul class="space-y-2.5 text-muted-foreground">
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>Reproducir, transmitir a otro equipo informático, modificar, adaptar, mantener, corregir errores ni traducir el Software.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>Ceder, vender, licenciar, sublicenciar, alquilar, arrendar, dar en garantía o transferir la licencia del Software a terceros.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>Copiar el código, la estructura, el diseño visual, los iconos o las plantillas del Software.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>Utilizar la marca Comercialo, el nombre comercial o los logotipos del Proveedor en metaetiquetas, palabras clave de motores de búsqueda, publicidad o textos ocultos.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>Crear obras derivadas a partir del Software o utilizar su diseño visual para desarrollar productos competidores.</span></li>
+</ul>
+<h3 class="text-lg font-bold text-foreground pt-2"><span class="text-[#00AD55] mr-2">9.4.</span>Contenido cargado por el Cliente</h3>
+<p class="text-muted-foreground leading-relaxed text-sm md:text-base text-justify">El Cliente conserva la titularidad del contenido propio que carga en el Software (datos, imágenes, descripciones, catálogos y documentos comerciales). Sin embargo, otorga al Proveedor una licencia gratuita, no exclusiva y limitada al fin operativo del Software, exclusivamente para procesar, almacenar, mostrar y respaldar dicho contenido durante la vigencia del Contrato comercial. El Cliente garantiza que cuenta con los derechos suficientes sobre dicho contenido y mantendrá indemne al Proveedor frente a reclamos de terceros por su uso.</p>
+<h3 class="text-lg font-bold text-foreground pt-2"><span class="text-[#00AD55] mr-2">9.5.</span>Sugerencias y retroalimentación</h3>
+<p class="text-muted-foreground leading-relaxed text-sm md:text-base text-justify">Cuando el Cliente comparta sugerencias, ideas de mejora o retroalimentación sobre el Software, autoriza al Proveedor a incorporarlas libremente, sin contraprestación adicional, formando parte del Software como propiedad del Proveedor.</p>
+  </div>
+</section>
+<section id="clausula-10" class="scroll-mt-28 group">
+  <h2 class="text-xl md:text-2xl font-bold mb-5 text-foreground flex items-start gap-3 transition-colors group-hover:text-[#00AD55]">
+    <span class="flex items-center justify-center w-9 h-9 rounded-xl bg-[#00AD55]/10 text-[#00AD55] text-sm font-mono shrink-0">10</span>
+    <span>Contraprestación, facturación y devoluciones</span>
+  </h2>
+  <div class="md:pl-12 md:border-l-2 border-border group-hover:border-[#00AD55]/30 transition-colors space-y-4">
+<h3 class="text-lg font-bold text-foreground pt-2"><span class="text-[#00AD55] mr-2">10.1.</span>Modalidades de pago</h3>
+<p class="text-muted-foreground leading-relaxed text-sm md:text-base text-justify">La contratación puede realizarse bajo modalidad mensual o anual, según el plan contratado. La vigencia del servicio se inicia en la fecha en que la cuenta del Cliente se active en modo producción.</p>
+<h3 class="text-lg font-bold text-foreground pt-2"><span class="text-[#00AD55] mr-2">10.2.</span>Precios e impuestos</h3>
+<p class="text-muted-foreground leading-relaxed text-sm md:text-base text-justify">Salvo indicación expresa en contrario en el Contrato comercial específico, los precios publicados por el Proveedor incluyen el Impuesto General a las Ventas (IGV) y demás tributos aplicables conforme a la legislación peruana. El Proveedor emitirá los comprobantes electrónicos correspondientes a nombre de la razón social y RUC declarados por el Cliente.</p>
+<h3 class="text-lg font-bold text-foreground pt-2"><span class="text-[#00AD55] mr-2">10.3.</span>Pago oportuno</h3>
+<p class="text-muted-foreground leading-relaxed text-sm md:text-base text-justify">Para suscripciones mensuales, el pago debe realizarse hasta el día nueve (9) de cada mes. Para suscripciones anuales, el pago debe realizarse dentro de los diez (10) días calendario posteriores a la comunicación del vencimiento. La falta de pago habilita al Proveedor a suspender el acceso al Software.</p>
+<h3 class="text-lg font-bold text-foreground pt-2"><span class="text-[#00AD55] mr-2">10.4.</span>Política de devolución</h3>
+<p class="text-muted-foreground leading-relaxed text-sm md:text-base text-justify">El Cliente puede solicitar la devolución del ochenta por ciento (80%) del importe pagado por el Software, dentro de los cinco (5) días calendario posteriores al pago. Quedan expresamente excluidas de la devolución:</p>
+<ul class="space-y-2.5 text-muted-foreground">
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>Los viáticos y costos de implementación efectivamente desembolsados.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>Las capacitaciones presenciales realizadas.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>El hardware adquirido (impresoras, computadoras, dispositivos POS u otros), el cual se rige por las garantías del fabricante.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>Los servicios accesorios (OSE,           integraciones    especiales,    configuraciones personalizadas) ya están iniciados. Vencido el plazo de cinco (5) días calendario posteriores al pago, no procede devolución bajo ningún supuesto.</span></li>
+</ul>
+<h3 class="text-lg font-bold text-foreground pt-2"><span class="text-[#00AD55] mr-2">10.5.</span>Reajuste de tarifas</h3>
+<p class="text-muted-foreground leading-relaxed text-sm md:text-base text-justify">El Proveedor podrá modificar las tarifas, comunicando al Cliente con una anticipación no menor a cuarenta y cinco (45) días calendario. Si el Cliente no estuviera conforme, podrá optar por no renovar el Contrato comercial específico al término del periodo vigente.</p>
+<h3 class="text-lg font-bold text-foreground pt-2"><span class="text-[#00AD55] mr-2">10.6.</span>Hardware y servicios accesorios</h3>
+<p class="text-muted-foreground leading-relaxed text-sm md:text-base text-justify">El Software se contrata como servicio independiente del hardware. El hardware (impresoras térmicas, computadoras, dispositivos POS, lectores, etc.) y los servicios accesorios (OSE, Certificado digital tributario, integraciones especiales, reportes personalizados, capacitaciones presenciales fuera del plan inicial, entrega electrónica masiva de comprobantes) se cotizan y facturan por separado, sin afectar la suscripción base. Cuando el Cliente esté obligado a validar sus comprobantes mediante un Operador de Servicios Electrónicos (OSE), deberá informarlo al Proveedor para la habilitación correspondiente; el cargo mensual por dicho concepto se factura por separado.</p>
+  </div>
+</section>
+<section id="clausula-11" class="scroll-mt-28 group">
+  <h2 class="text-xl md:text-2xl font-bold mb-5 text-foreground flex items-start gap-3 transition-colors group-hover:text-[#00AD55]">
+    <span class="flex items-center justify-center w-9 h-9 rounded-xl bg-[#00AD55]/10 text-[#00AD55] text-sm font-mono shrink-0">11</span>
+    <span>Vigencia, renovación y resolución</span>
+  </h2>
+  <div class="md:pl-12 md:border-l-2 border-border group-hover:border-[#00AD55]/30 transition-colors space-y-4">
+<h3 class="text-lg font-bold text-foreground pt-2"><span class="text-[#00AD55] mr-2">11.1.</span>Vigencia mínima</h3>
+<p class="text-muted-foreground leading-relaxed text-sm md:text-base text-justify">Las contrataciones anuales tienen una vigencia mínima de doce (12) meses, contados desde la activación de la cuenta en SUNAT en modo producción. Vencido el plazo, el Contrato comercial específico se renueva automáticamente bajo las mismas condiciones, salvo que cualquiera de las partes manifieste su voluntad en contrario con anticipación razonable.</p>
+<h3 class="text-lg font-bold text-foreground pt-2"><span class="text-[#00AD55] mr-2">11.2.</span>Resolución por las partes</h3>
+<p class="text-muted-foreground leading-relaxed text-sm md:text-base text-justify">El Acuerdo y el Contrato comercial específico podrán ser resueltos:</p>
+<ul class="space-y-2.5 text-muted-foreground">
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>Por cumplimiento del plazo mínimo de permanencia.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>Por manifestación expresa de cualquiera de las partes con la anticipación pactada.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>Por incumplimiento total o parcial de las obligaciones, conforme a las disposiciones del Código Civil peruano.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>Por orden judicial, fiscal o administrativa dirigida a cualquiera de las partes.</span></li>
+</ul>
+<h3 class="text-lg font-bold text-foreground pt-2"><span class="text-[#00AD55] mr-2">11.3.</span>Efectos de la resolución</h3>
+<p class="text-muted-foreground leading-relaxed text-sm md:text-base text-justify">Resuelto el Acuerdo, el Cliente cuenta con un plazo razonable para descargar la información que necesite conservar. El Proveedor procederá a la eliminación segura de los datos almacenados, conforme a la Política de Privacidad y a los plazos de conservación legales aplicables. La resolución no exime al Cliente de las obligaciones de pago devengadas con anterioridad ni de las cláusulas que por su naturaleza subsistan (confidencialidad, propiedad intelectual, indemnidad).</p>
+  </div>
+</section>
+<section id="clausula-12" class="scroll-mt-28 group">
+  <h2 class="text-xl md:text-2xl font-bold mb-5 text-foreground flex items-start gap-3 transition-colors group-hover:text-[#00AD55]">
+    <span class="flex items-center justify-center w-9 h-9 rounded-xl bg-[#00AD55]/10 text-[#00AD55] text-sm font-mono shrink-0">12</span>
+    <span>Limitación de responsabilidad</span>
+  </h2>
+  <div class="md:pl-12 md:border-l-2 border-border group-hover:border-[#00AD55]/30 transition-colors space-y-4">
+<h3 class="text-lg font-bold text-foreground pt-2"><span class="text-[#00AD55] mr-2">12.1.</span>Supuestos no imputables al Proveedor</h3>
+<p class="text-muted-foreground leading-relaxed text-sm md:text-base text-justify">El Proveedor no responderá por:</p>
+<ul class="space-y-2.5 text-muted-foreground">
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>El uso indebido, fraudulento o no autorizado del Software por parte del Cliente, su personal, o terceros que el Cliente haya autorizado.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>La veracidad, legalidad, exactitud o suficiencia de la información que el Cliente registra, modifica o conserva en el Software.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>Sanciones, multas, intereses, medidas correctivas o procedimientos administrativos que SUNAT, INDECOPI, Municipalidades, ANPD u otras autoridades impongan al Cliente.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>Las decisiones empresariales que el Cliente adopte sobre la base de los reportes operativos generados por el Software.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>Interrupciones del servicio derivadas de fallas de internet o de los equipos del Cliente, mantenimientos programados, fallas de proveedores de infraestructura ajenos al control del Proveedor o eventos de fuerza mayor o caso fortuito.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>La pérdida de información que no sea atribuible a dolo o culpa inexcusable del Proveedor.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>La calidad, oportunidad o legalidad de los Servicios de Terceros.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>Las acciones u omisiones de los consumidores finales o de cualquier tercero ajeno al Acuerdo.</span></li>
+</ul>
+<h3 class="text-lg font-bold text-foreground pt-2"><span class="text-[#00AD55] mr-2">12.2.</span>Daños no resarcibles</h3>
+<p class="text-muted-foreground leading-relaxed text-sm md:text-base text-justify">En ningún caso el Proveedor responderá por daños indirectos, consecuenciales, lucro cesante, pérdida de oportunidad de negocio, pérdida de reputación, pérdida de datos comerciales o cualquier otra pérdida comercial que el Cliente o un tercero pueda alegar derivada del uso o de la imposibilidad de uso del Software.</p>
+<h3 class="text-lg font-bold text-foreground pt-2"><span class="text-[#00AD55] mr-2">12.3.</span>Tope cuantitativo</h3>
+<p class="text-muted-foreground leading-relaxed text-sm md:text-base text-justify">La responsabilidad económica máxima del Proveedor frente al Cliente, por la totalidad de los eventos que pudieran ocurrir durante la vigencia del Contrato comercial específico, queda limitada al importe efectivamente pagado por el Cliente durante los seis (6) meses calendario inmediatamente anteriores al hecho generador del reclamo.</p>
+  </div>
+</section>
+<section id="clausula-13" class="scroll-mt-28 group">
+  <h2 class="text-xl md:text-2xl font-bold mb-5 text-foreground flex items-start gap-3 transition-colors group-hover:text-[#00AD55]">
+    <span class="flex items-center justify-center w-9 h-9 rounded-xl bg-[#00AD55]/10 text-[#00AD55] text-sm font-mono shrink-0">13</span>
+    <span>Indemnidad</span>
+  </h2>
+  <div class="md:pl-12 md:border-l-2 border-border group-hover:border-[#00AD55]/30 transition-colors space-y-4">
+<p class="text-muted-foreground leading-relaxed text-sm md:text-base text-justify">El Cliente mantendrá indemne al Proveedor, sus directores, accionistas, trabajadores, asesores y proveedores frente a cualquier reclamación, demanda, denuncia, sanción, multa, costo o indemnización (incluidos los honorarios profesionales razonables de defensa) que se origine en:</p>
+<ul class="space-y-2.5 text-muted-foreground">
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>El incumplimiento por parte del Cliente de cualquier disposición del presente Acuerdo, del Contrato comercial específico o de la legislación aplicable.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>La carga indebida o ilícita de información en el Software.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>La vulneración de derechos de terceros por el contenido subido por el Cliente.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>El incumplimiento de las obligaciones tributarias, laborales, sectoriales o de protección al consumidor del Cliente.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>El uso indebido de las credenciales asignadas al Cliente o a su Responsable del Sistema. Esta obligación de indemnidad subsiste a la terminación del Acuerdo durante el plazo legal de prescripción de la acción correspondiente.</span></li>
+</ul>
+  </div>
+</section>
+<section id="clausula-14" class="scroll-mt-28 group">
+  <h2 class="text-xl md:text-2xl font-bold mb-5 text-foreground flex items-start gap-3 transition-colors group-hover:text-[#00AD55]">
+    <span class="flex items-center justify-center w-9 h-9 rounded-xl bg-[#00AD55]/10 text-[#00AD55] text-sm font-mono shrink-0">14</span>
+    <span>Comunicaciones electrónicas</span>
+  </h2>
+  <div class="md:pl-12 md:border-l-2 border-border group-hover:border-[#00AD55]/30 transition-colors space-y-4">
+<p class="text-muted-foreground leading-relaxed text-sm md:text-base text-justify">El Cliente reconoce y acepta que las comunicaciones entre las partes se realizan principalmente por medios electrónicos. Al aceptar el presente Acuerdo, el Cliente autoriza expresamente al Proveedor a enviar notificaciones, avisos, recordatorios, comprobantes, alertas y cualquier comunicación publicitaria y contractual a través de:</p>
+<ul class="space-y-2.5 text-muted-foreground">
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>El correo electrónico registrado en su cuenta.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>Mensajería por WhatsApp al número celular registrado.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>Notificaciones dentro del Software.</span></li>
+<!--email_off--><li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>SMS, cuando corresponda. Las comunicaciones cursadas por estos medios se reputan válidamente recibidas, salvo prueba de error en la entrega imputable a la parte remitente. El Cliente puede comunicarse formalmente con el Proveedor a través de <a href="mailto:contacto@comercialo.pe" class="font-semibold text-[#00AD55] hover:underline">contacto@comercialo.pe</a> o WhatsApp +51 935 289 770.</span></li><!--/email_off-->
+</ul>
+  </div>
+</section>
+<section id="clausula-15" class="scroll-mt-28 group">
+  <h2 class="text-xl md:text-2xl font-bold mb-5 text-foreground flex items-start gap-3 transition-colors group-hover:text-[#00AD55]">
+    <span class="flex items-center justify-center w-9 h-9 rounded-xl bg-[#00AD55]/10 text-[#00AD55] text-sm font-mono shrink-0">15</span>
+    <span>Protección de datos personales</span>
+  </h2>
+  <div class="md:pl-12 md:border-l-2 border-border group-hover:border-[#00AD55]/30 transition-colors space-y-4">
+<p class="text-muted-foreground leading-relaxed text-sm md:text-base text-justify">El tratamiento de datos personales que se realiza en virtud del Acuerdo se rige por la Política de Privacidad publicada en el sitio web del Proveedor, Distribución de roles:</p>
+<ul class="space-y-2.5 text-muted-foreground">
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>Datos del Cliente y sus representantes (registro, facturación, soporte): el Proveedor actúa como responsable del tratamiento.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>Datos de consumidores finales y otros terceros que el Cliente cargue en el Software: el Cliente actúa como responsable del tratamiento, y el Proveedor actúa como encargado por cuenta del Cliente.</span></li>
+</ul>
+  </div>
+</section>
+<section id="clausula-16" class="scroll-mt-28 group">
+  <h2 class="text-xl md:text-2xl font-bold mb-5 text-foreground flex items-start gap-3 transition-colors group-hover:text-[#00AD55]">
+    <span class="flex items-center justify-center w-9 h-9 rounded-xl bg-[#00AD55]/10 text-[#00AD55] text-sm font-mono shrink-0">16</span>
+    <span>Cesión y cambio de control</span>
+  </h2>
+  <div class="md:pl-12 md:border-l-2 border-border group-hover:border-[#00AD55]/30 transition-colors space-y-4">
+<p class="text-muted-foreground leading-relaxed text-sm md:text-base text-justify">El Cliente no podrá ceder su posición contractual ni los derechos y obligaciones derivados de este Acuerdo sin el consentimiento previo y escrito del Proveedor. El Proveedor podrá ceder libremente su posición contractual a una empresa vinculada, sucesora o adquirente, así como efectuar cualquier reorganización societaria, sin necesidad del consentimiento del Cliente, conservando este los mismos derechos contractuales. El Proveedor comunicará oportunamente la cesión al canal de notificaciones registrado.</p>
+  </div>
+</section>
+<section id="clausula-17" class="scroll-mt-28 group">
+  <h2 class="text-xl md:text-2xl font-bold mb-5 text-foreground flex items-start gap-3 transition-colors group-hover:text-[#00AD55]">
+    <span class="flex items-center justify-center w-9 h-9 rounded-xl bg-[#00AD55]/10 text-[#00AD55] text-sm font-mono shrink-0">17</span>
+    <span>Modificaciones al Acuerdo</span>
+  </h2>
+  <div class="md:pl-12 md:border-l-2 border-border group-hover:border-[#00AD55]/30 transition-colors space-y-4">
+<p class="text-muted-foreground leading-relaxed text-sm md:text-base text-justify">El Proveedor podrá modificar el presente Acuerdo en cualquier momento, comunicando los cambios al Cliente con una anticipación no menor a cuarenta y cinco (45) días calendario cuando se trate de modificaciones que afecten condiciones esenciales (tarifas, política de devolución, vigencia), conforme al artículo 5 de la Ley N° 28587. Para modificaciones de menor impacto, la anticipación será de quince (15) días calendario. Las comunicaciones se realizan al correo registrado y mediante aviso en el Software. Si el Cliente no acepta las modificaciones, podrá comunicarlo dentro del plazo y dar por terminado el Acuerdo. El uso continuado del Software vencido el plazo se entiende como aceptación tácita.</p>
+  </div>
+</section>
+<section id="clausula-18" class="scroll-mt-28 group">
+  <h2 class="text-xl md:text-2xl font-bold mb-5 text-foreground flex items-start gap-3 transition-colors group-hover:text-[#00AD55]">
+    <span class="flex items-center justify-center w-9 h-9 rounded-xl bg-[#00AD55]/10 text-[#00AD55] text-sm font-mono shrink-0">18</span>
+    <span>Disposiciones generales</span>
+  </h2>
+  <div class="md:pl-12 md:border-l-2 border-border group-hover:border-[#00AD55]/30 transition-colors space-y-4">
+<h3 class="text-lg font-bold text-foreground pt-2"><span class="text-[#00AD55] mr-2">18.1.</span>Independencia de cláusulas</h3>
+<p class="text-muted-foreground leading-relaxed text-sm md:text-base text-justify">La invalidez, ilegalidad o inexigibilidad de alguna disposición del presente Acuerdo no afectará la validez, legalidad o exigibilidad de las demás disposiciones, las cuales conservarán plena vigencia.</p>
+<h3 class="text-lg font-bold text-foreground pt-2"><span class="text-[#00AD55] mr-2">18.2.</span>Tolerancia</h3>
+<p class="text-muted-foreground leading-relaxed text-sm md:text-base text-justify">La inacción de cualquiera de las partes frente a un incumplimiento puntual no constituye renuncia a su derecho de exigir el cumplimiento posterior de las obligaciones contenidas en este Acuerdo.</p>
+<h3 class="text-lg font-bold text-foreground pt-2"><span class="text-[#00AD55] mr-2">18.3.</span>Acuerdo íntegro</h3>
+<p class="text-muted-foreground leading-relaxed text-sm md:text-base text-justify">El presente Acuerdo, junto con la Política de Privacidad y el Contrato comercial específico, constituye el acuerdo íntegro entre las partes y reemplaza cualquier comunicación, propuesta o entendimiento previo, oral o escrito, sobre la materia.</p>
+<h3 class="text-lg font-bold text-foreground pt-2"><span class="text-[#00AD55] mr-2">18.4.</span>Caso fortuito y fuerza mayor</h3>
+<p class="text-muted-foreground leading-relaxed text-sm md:text-base text-justify">Ninguna de las partes responderá por incumplimientos derivados de caso fortuito o fuerza mayor, conforme al artículo 1315 del Código Civil peruano.</p>
+  </div>
+</section>
+<section id="clausula-19" class="scroll-mt-28 group">
+  <h2 class="text-xl md:text-2xl font-bold mb-5 text-foreground flex items-start gap-3 transition-colors group-hover:text-[#00AD55]">
+    <span class="flex items-center justify-center w-9 h-9 rounded-xl bg-[#00AD55]/10 text-[#00AD55] text-sm font-mono shrink-0">19</span>
+    <span>Solución de controversias</span>
+  </h2>
+  <div class="md:pl-12 md:border-l-2 border-border group-hover:border-[#00AD55]/30 transition-colors space-y-4">
+<h3 class="text-lg font-bold text-foreground pt-2"><span class="text-[#00AD55] mr-2">19.1.</span>Trato directo</h3>
+<p class="text-muted-foreground leading-relaxed text-sm md:text-base text-justify">Las partes procurarán resolver toda controversia mediante trato directo y de buena fe durante un plazo no menor a treinta (30) días calendario contados desde la comunicación formal del reclamo.</p>
+<h3 class="text-lg font-bold text-foreground pt-2"><span class="text-[#00AD55] mr-2">19.2.</span>Conciliación</h3>
+<p class="text-muted-foreground leading-relaxed text-sm md:text-base text-justify">De no alcanzarse acuerdo, las partes someterán la controversia al Centro de Conciliación de la Cámara de Comercio de Huánuco, conforme al procedimiento aplicable.</p>
+<h3 class="text-lg font-bold text-foreground pt-2"><span class="text-[#00AD55] mr-2">19.3.</span>Vía judicial</h3>
+<p class="text-muted-foreground leading-relaxed text-sm md:text-base text-justify">Agotadas las etapas anteriores sin solución, la controversia se someterá a la jurisdicción exclusiva de los jueces y tribunales del distrito judicial de Huánuco. El presente Acuerdo se rige por las leyes de la República del Perú.</p>
+  </div>
+</section>
+<section id="clausula-20" class="scroll-mt-28 group">
+  <h2 class="text-xl md:text-2xl font-bold mb-5 text-foreground flex items-start gap-3 transition-colors group-hover:text-[#00AD55]">
+    <span class="flex items-center justify-center w-9 h-9 rounded-xl bg-[#00AD55]/10 text-[#00AD55] text-sm font-mono shrink-0">20</span>
+    <span>Aceptación expresa</span>
+  </h2>
+  <div class="md:pl-12 md:border-l-2 border-border group-hover:border-[#00AD55]/30 transition-colors space-y-4">
+<p class="text-muted-foreground leading-relaxed text-sm md:text-base text-justify">Al registrarse, suscribirse, instalar o utilizar el Software, el Cliente declara expresamente que:</p>
+<ul class="space-y-2.5 text-muted-foreground">
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>Tiene capacidad legal y, de ser el caso, las facultades suficientes para representar a la persona jurídica que contrata.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>Ha leído, comprendido y aceptado íntegramente el presente Acuerdo y la Política de Privacidad.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>Acepta de manera particular las disposiciones de la Cláusula 3 (Protección frente al D.S. N° 303-2025-EF) y de la Cláusula 4 (Responsabilidad sobre los datos cargados), reconociendo que Comercialo no es un sistema contable y que la responsabilidad sobre la información cargada es exclusivamente suya.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>Cuenta con un sistema contable independiente del Software donde efectivamente registra sus operaciones contables.</span></li>
+<li class="flex gap-3 leading-relaxed text-sm md:text-base"><span aria-hidden="true" class="mt-2 w-1.5 h-1.5 rounded-full bg-[#00AD55] shrink-0"></span><span>Mantendrá indemne a GEN AI LEGAL S.A.C.S., titular de la marca Comercialo, frente a cualquier reclamación, sanción o procedimiento que se origine en información cargada por el Cliente o en el incumplimiento de sus propias obligaciones tributarias o legales.</span></li>
+</ul>
+<aside class="rounded-2xl bg-[#00AD55]/10 border border-[#00AD55]/30 p-6 font-semibold text-foreground leading-relaxed">Al marcar la casilla de aceptación, pulsar el botón “Acepto” o continuar utilizando la Plataforma, el Usuario declara haber leído, comprendido y aceptado en su integridad estos Términos y Condiciones de Uso.</aside>
+<p class="text-xs text-muted-foreground italic text-center pt-4">Aviso al lector: Este Acuerdo ha sido elaborado considerando el marco normativo peruano vigente.</p>
+  </div>
+</section>
+          </div>
+
+          <footer class="mt-12 pt-8 border-t border-border text-center space-y-2">
+            <p class="text-sm font-semibold text-foreground">GEN AI LEGAL S.A.C.S. - RUC 20614276534</p>
+            <!--email_off--><p class="text-xs text-muted-foreground"><a href="mailto:contacto@comercialo.pe" class="hover:text-[#00AD55] hover:underline">contacto@comercialo.pe</a> · +51 935 289 770</p><!--/email_off-->
+            <p class="text-xs text-muted-foreground italic">Comercialo © {new Date().getFullYear()} - Todos los derechos reservados.</p>
+          </footer>
+        </article>
       </div>
-
-      <footer class="mt-12 pt-6 border-t border-gray-200 text-sm text-gray-500">
-        <p>Última actualización: 02 de Febrero de 2026.</p>
-      </footer>
-    </section>
-  </main>
-  <Footer />
+    </main>
+  </div>
 </Layout>

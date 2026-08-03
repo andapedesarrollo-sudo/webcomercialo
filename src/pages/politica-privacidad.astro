@@ -1,0 +1,291 @@
+---
+export const prerender = true;
+
+import Layout from '../layouts/Layout.astro';
+import PrivacyTableComercialo from '../components/PrivacyTableComercialo.astro';
+
+Astro.response.headers.set('Cache-Control', 'public, max-age=60, s-maxage=3600');
+
+const siteUrl = 'https://comercialo.pe';
+const currentUrl = new URL(Astro.url.pathname, siteUrl).href;
+const title = 'Política de Privacidad | Comercialo';
+const description = 'Conoce cómo Comercialo recopila, utiliza, protege y conserva los datos personales de sus clientes, usuarios y visitantes.';
+const updatedAt = '3 de agosto de 2026';
+
+const privacySchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  '@id': `${currentUrl}#webpage`,
+  name: title,
+  description,
+  url: currentUrl,
+  inLanguage: 'es-PE',
+  dateModified: '2026-08-03',
+  breadcrumb: {
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Inicio', item: `${siteUrl}/` },
+      { '@type': 'ListItem', position: 2, name: 'Política de Privacidad', item: currentUrl },
+    ],
+  },
+  mainEntity: {
+    '@type': 'DigitalDocument',
+    name: 'Política de Privacidad de Comercialo',
+    dateModified: '2026-08-03',
+    inLanguage: 'es-PE',
+    publisher: {
+      '@type': 'Organization',
+      name: 'GEN AI LEGAL S.A.C.S.',
+      taxID: '20614276534',
+      brand: { '@type': 'Brand', name: 'Comercialo' },
+    },
+  },
+};
+
+const peopleRows = [
+  ['Cliente y representantes', 'Cuando contratas el servicio o cuando tu personal autorizado administra la cuenta.', 'Somos responsables del tratamiento.'],
+  ['Consumidores finales', 'Cuando tu cliente recibe una boleta o factura electrónica que emitiste con Comercialo.', 'Tú eres el responsable; nosotros somos encargados por tu cuenta.'],
+  ['Proveedores del Cliente', 'Cuando registras compras, gastos o facturas recibidas.', 'Tú eres el responsable; nosotros somos encargados por tu cuenta.'],
+  ['Trabajadores del Cliente', 'Cuando das de alta cajeros, vendedores, administradores u otros usuarios.', 'Tú eres el responsable; nosotros somos encargados por tu cuenta.'],
+  ['Visitantes del sitio web', 'Cuando alguien navega por nuestro sitio sin haber iniciado sesión.', 'Mostramos la aceptación de cookies.'],
+];
+
+const purposesRows = [
+  ['Activar tu cuenta y prestarte el servicio contratado', 'Cumplimiento del contrato', 'No (necesario)'],
+  ['Emitir tus comprobantes electrónicos y validarlos ante SUNAT', 'Cumplimiento del contrato', 'No (necesario)'],
+  ['Emitirte facturas, cobrar y llevar nuestra contabilidad', 'Cumplimiento de obligaciones legales', 'No (necesario)'],
+  ['Brindarte soporte técnico, capacitación y atención posventa', 'Cumplimiento del contrato', 'No (necesario)'],
+  ['Detectar fraudes, intentos de intrusión o uso indebido', 'Interés legítimo', 'No (necesario)'],
+  ['Mejorar el software con datos agregados y anonimizados', 'Interés legítimo', 'Sí (puedes oponerte)'],
+  ['Enviarte comunicaciones comerciales o novedades por correo o WhatsApp', 'Consentimiento', 'Sí (puedes desactivarlo)'],
+  ['Almacenar y procesar datos que tú cargas', 'Encargo del Cliente', 'Lo decides tú'],
+];
+
+const providersRows = [
+  ['Infraestructura en la nube', 'Alojar el software y procesar información operativa.', 'Sudamérica / Norteamérica'],
+  ['Respaldo de información', 'Guardar copias cifradas ante imprevistos.', 'Sudamérica / Norteamérica'],
+  ['Operadores de Servicios Electrónicos (OSE)', 'Validar comprobantes electrónicos cuando corresponda.', 'Perú'],
+  ['Pasarela de pagos', 'Procesar pagos sin almacenar los datos completos de la tarjeta.', 'Perú'],
+  ['Mensajería transaccional', 'Enviar correos del sistema y recordatorios.', 'Norteamérica'],
+  ['WhatsApp Business y soporte', 'Atender soporte y enviar notificaciones autorizadas.', 'Plataforma global'],
+];
+
+const rightsRows = [
+  ['Información', 'Saber qué datos tuyos manejamos y por qué.', '8 días hábiles'],
+  ['Acceso', 'Recibir una copia de los datos que tenemos sobre ti.', '20 días hábiles'],
+  ['Rectificación', 'Corregir datos equivocados o desactualizados.', '10 días hábiles'],
+  ['Supresión / Cancelación', 'Solicitar que eliminemos datos que ya no sean necesarios.', '10 días hábiles'],
+  ['Oposición', 'Oponerte a tratamientos basados en interés legítimo.', '10 días hábiles'],
+  ['Revocación', 'Retirar el consentimiento para fines opcionales.', 'Inmediato'],
+  ['Portabilidad', 'Recibir tus datos en un formato reutilizable.', '20 días hábiles'],
+  ['Tratamiento objetivo', 'No quedar sometido únicamente a decisiones automatizadas con efectos importantes.', '10 días hábiles'],
+];
+
+const incidentRows = [
+  ['Detección y contención', 'Activamos el plan de respuesta y contenemos el incidente.', 'Inmediato o hasta 24 horas'],
+  ['Documentación', 'Registramos lo ocurrido, sus causas, afectados y medidas.', 'Continuo'],
+  ['Aviso a la Autoridad', 'Notificamos a la Autoridad de Protección de Datos.', 'Hasta 48 horas'],
+  ['Aviso a los afectados', 'Comunicamos claramente qué ocurrió y qué pueden hacer.', 'Lo antes posible'],
+  ['Aprendizaje', 'Revisamos el incidente y reforzamos los controles.', '30 días posteriores al cierre'],
+];
+
+const cookiesRows = [
+  ['Imprescindibles', 'Mantienen la sesión, recuerdan el idioma y aseguran la conexión.', 'No (técnicas)'],
+  ['Analíticas', 'Ayudan a entender cómo se usa el sitio.', 'Sí'],
+  ['Marketing', 'Miden campañas y muestran contenido relevante en otros sitios.', 'Sí'],
+];
+
+---
+
+<Layout title={title} description={description} pageSchema={privacySchema}>
+  <div class="min-h-[calc(100vh-112px)] flex flex-col">
+    <main class="flex-grow bg-background pt-12 pb-16 transition-colors duration-300 lg:pt-16" aria-labelledby="privacy-heading">
+      <div class="container relative z-10 mx-auto max-w-4xl px-4">
+        <article class="rounded-3xl border border-border bg-card p-8 shadow-card-hover md:p-12">
+          <header class="mb-10 border-b border-border pb-6 text-center md:text-left">
+            <h1 id="privacy-heading" class="mb-3 font-display text-3xl font-extrabold uppercase tracking-tight text-foreground md:text-4xl">
+              Política de <span class="text-[#00AD55]">Privacidad</span>
+            </h1>
+            <h2 class="mb-2 text-xl font-bold italic text-foreground opacity-90">Comercialo - GEN AI LEGAL S.A.C.S.</h2>
+            <p class="text-xs font-bold uppercase tracking-widest text-[#00AD55]">Versión vigente desde: {updatedAt}</p>
+          </header>
+
+          <div class="space-y-12 text-muted-foreground">
+            <section>
+              <h2 class="section-title">Bienvenido</h2>
+              <div class="content-block">
+                <p>En Comercialo sabemos que la información de tu negocio es valiosa. Por eso queremos explicarte, en lenguaje sencillo, cómo tratamos los datos personales que recibimos cuando contratas nuestra plataforma o navegas por nuestro sitio web.</p>
+                <p>Comercialo es una marca operada por <strong>GEN AI LEGAL S.A.C.S.</strong>, empresa peruana con RUC <strong>20614276534</strong> y domicilio en Av. Enrique López Albújar Mza. J Lote 2, Amarilis, Huánuco. En esta Política llamaremos “Proveedor” a nuestra empresa y “Cliente” a quien contrata la plataforma.</p>
+                <p>Este documento complementa los Términos y Condiciones de Uso. Si tienes dudas, escríbenos a <!--email_off--><a href="mailto:contacto@comercialo.pe">contacto@comercialo.pe</a><!--/email_off-->.</p>
+              </div>
+            </section>
+
+            <section>
+              <h2 class="section-title">Cómo está organizada esta Política</h2>
+              <div class="content-block">
+                <p>La Política se divide en cuatro partes:</p>
+                <ul>
+                  <li><strong>Parte 1 - Lo esencial:</strong> resumen de los puntos clave.</li>
+                  <li><strong>Parte 2 - Tus datos en detalle:</strong> qué información manejamos, para qué y durante cuánto tiempo.</li>
+                  <li><strong>Parte 3 - Tus derechos:</strong> qué puedes pedirnos y cómo hacerlo.</li>
+                  <li><strong>Parte 4 - Cómo protegemos tu información:</strong> seguridad, transferencias internacionales e incidentes.</li>
+                </ul>
+              </div>
+            </section>
+
+            <section>
+              <h2 class="section-title"><span class="number">1</span>Parte 1. Lo esencial</h2>
+              <div class="content-block numbered">
+                <p><strong>Quiénes somos.</strong> GEN AI LEGAL S.A.C.S., empresa peruana operadora de Comercialo, una plataforma de gestión comercial para comercios en general, emprendimientos y empresas que venden productos o prestan servicios.</p>
+                <p><strong>Qué es Comercialo.</strong> Una herramienta para emitir comprobantes electrónicos y apoyar la gestión de ventas, caja, inventarios, compras, clientes, proveedores y reportes operativos del negocio.</p>
+                <p><strong>Qué información tratamos.</strong> Datos de identificación de tu empresa y representantes, además de la información operativa que cargas en el software.</p>
+                <p><strong>Para qué la usamos.</strong> Para activar tu cuenta, brindar soporte, enviar comprobantes a SUNAT, generar reportes y cumplir obligaciones legales.</p>
+                <p><strong>Quién decide sobre los datos.</strong> Los datos que cargas son tuyos. Nosotros los procesamos siguiendo tus instrucciones.</p>
+                <p><strong>Tus derechos.</strong> Puedes solicitar información, acceso, rectificación, supresión, oposición, revocación, portabilidad y tratamiento objetivo.</p>
+                <aside class="notice">Tus datos se usan solo para lo necesario. No los vendemos ni los compartimos con terceros para publicidad.</aside>
+              </div>
+            </section>
+
+            <section>
+              <h2 class="section-title"><span class="number">2</span>Parte 2. Tus datos en detalle</h2>
+              <div class="content-block numbered">
+                <h3>2.1. Categorías de personas cuyos datos tratamos</h3>
+                <PrivacyTableComercialo headers={['Tipo de persona', 'Cuándo aparece', 'Nuestro rol']} rows={peopleRows} />
+                <p>Los datos de consumidores, proveedores y trabajadores que decides cargar se procesan siguiendo tus instrucciones. Tú decides qué se registra, cómo se usa y cuándo se elimina.</p>
+
+                <h3>2.2. Qué información manejamos</h3>
+                <h4>Cuando contratas el servicio</h4>
+                <ul>
+                  <li>Razón social, RUC, dirección fiscal y rubro económico.</li>
+                  <li>Nombres, apellidos, cargo, correo, teléfono y documento del contacto autorizado.</li>
+                  <li>Datos del responsable del sistema, facturación, pagos y transacciones.</li>
+                </ul>
+                <h4>Mientras usas el software</h4>
+                <ul>
+                  <li>Registros de acceso, dirección IP, navegador, dispositivo y configuraciones.</li>
+                  <li>Tickets de soporte, correos, mensajes de WhatsApp y capturas compartidas.</li>
+                  <li>Productos, servicios, precios, existencias, kárdex, ventas, compras, gastos y caja.</li>
+                  <li>Datos de consumidores finales, proveedores y trabajadores que registres.</li>
+                </ul>
+                <h4>Cuando navegas por el sitio web</h4>
+                <ul>
+                  <li>Páginas visitadas, permanencia, origen del tráfico y dirección IP para estadísticas y seguridad.</li>
+                  <li>Información que compartas voluntariamente mediante formulario, WhatsApp o correo.</li>
+                </ul>
+                <h4>Datos sensibles</h4>
+                <p>No solicitamos datos sensibles porque no son necesarios para operar. Si alguno se registra accidentalmente, aplicaremos las medidas reforzadas exigidas por la normativa.</p>
+
+                <h3>2.3. Para qué usamos cada tipo de información</h3>
+                <PrivacyTableComercialo headers={['Finalidad', 'Fundamento', '¿Es opcional?']} rows={purposesRows} />
+
+                <h3>2.4. Cuánto tiempo guardamos tus datos</h3>
+                <p>Conservamos los datos únicamente durante el tiempo necesario para cumplir las finalidades informadas y los plazos legales aplicables. Después, los eliminamos de forma segura o los anonimizamos. Puedes consultarnos el plazo aplicable a una categoría concreta.</p>
+                <p>El almacenamiento de los comprobantes electrónicos emitidos mediante el software se rige también por el contrato comercial suscrito con cada Cliente.</p>
+
+                <h3>2.5. Con quién compartimos información</h3>
+                <p>No vendemos tus datos ni los entregamos para publicidad. Algunos proveedores especializados acceden únicamente a la información necesaria para prestar su servicio:</p>
+                <PrivacyTableComercialo headers={['Tipo de proveedor', 'Finalidad', 'Ubicación']} rows={providersRows} />
+                <p>Si una autoridad peruana competente solicita información formalmente, evaluaremos el requerimiento y entregaremos solo lo estrictamente necesario. Cuando la ley lo permita, te informaremos.</p>
+              </div>
+            </section>
+
+            <section>
+              <h2 class="section-title"><span class="number">3</span>Parte 3. Tus derechos</h2>
+              <div class="content-block numbered">
+                <h3>3.1. Lo que puedes pedirnos</h3>
+                <PrivacyTableComercialo headers={['Derecho', 'Qué significa', 'Plazo de respuesta']} rows={rightsRows} />
+
+                <h3>3.2. Cómo presentar una solicitud</h3>
+                <ol>
+                  <li><strong>Identifícate.</strong> Escribe desde el correo registrado. Si representas a otra persona o empresa, acredita tu representación.</li>
+                  <li><strong>Sé específico.</strong> Indica el derecho que deseas ejercer, los datos involucrados y, si es posible, el módulo donde se registraron.</li>
+                  <li><strong>Espera el acuse de recibo.</strong> Confirmaremos la recepción el mismo día hábil.</li>
+                  <li><strong>Recibe nuestra respuesta.</strong> Responderemos dentro del plazo legal. Si necesitamos información adicional, el plazo se suspenderá hasta recibirla.</li>
+                </ol>
+                <aside class="notice">Canal oficial para protección de datos y derechos ARCO: <!--email_off--><a href="mailto:contacto@comercialo.pe">contacto@comercialo.pe</a><!--/email_off-->.</aside>
+
+                <h3>3.3. Si eres consumidor final, proveedor o trabajador del Cliente</h3>
+                <p>Si tus datos están en Comercialo porque un negocio Cliente los registró, ese negocio es el responsable de tu información. Debes dirigirle tu solicitud. Si no puedes ubicarlo o no responde, escríbenos y colaboraremos para que tu solicitud llegue a quien corresponda.</p>
+              </div>
+            </section>
+
+            <section>
+              <h2 class="section-title"><span class="number">4</span>Parte 4. Cómo protegemos tu información</h2>
+              <div class="content-block numbered">
+                <h3>4.1. Medidas de seguridad</h3>
+                <ul>
+                  <li>Cifrado de comunicaciones mediante HTTPS/TLS.</li>
+                  <li>Control de accesos basado en el principio de mínimo privilegio.</li>
+                  <li>Separación de ambientes de desarrollo, pruebas y producción.</li>
+                  <li>Respaldos periódicos verificados y registros de auditoría.</li>
+                  <li>Capacitación del equipo en privacidad y ciberseguridad.</li>
+                  <li>Acuerdos de confidencialidad con trabajadores y proveedores.</li>
+                  <li>Revisiones de seguridad y actualización continua de los sistemas.</li>
+                </ul>
+
+                <h3>4.2. Transferencias internacionales</h3>
+                <p>Parte de nuestra infraestructura opera fuera del Perú, principalmente en Sudamérica y Norteamérica. Aplicamos garantías contractuales para mantener un nivel de protección equivalente al exigido por la normativa peruana.</p>
+
+                <h3>4.3. Si ocurre un incidente de seguridad</h3>
+                <PrivacyTableComercialo headers={['Etapa', 'Qué hacemos', 'Plazo']} rows={incidentRows} />
+                <p>Si el incidente afecta datos que cargaste, te proporcionaremos la información necesaria para que cumplas tus propios deberes de aviso.</p>
+
+                <h3>4.5. Cookies y tecnologías similares</h3>
+                <p>Usamos cookies para que el sitio funcione, medir su uso y, con tu autorización, mostrar contenido relevante. Las cookies no esenciales solo se activan después de obtener tu consentimiento.</p>
+                <PrivacyTableComercialo headers={['Tipo de cookie', 'Finalidad', 'Requiere aceptación']} rows={cookiesRows} />
+                <p>Servicios de terceros, como Meta Pixel, Google Analytics o TikTok Pixel, pueden instalar sus propias cookies y se rigen por sus respectivas políticas. Puedes aceptar, rechazar o personalizar tu elección en el banner y modificarla desde tu navegador.</p>
+
+                <h3>4.6. Cambios a esta Política</h3>
+                <p>Podemos actualizar esta Política por cambios normativos, nuevas funcionalidades o mejoras en nuestras prácticas. Si los cambios son importantes, avisaremos mediante el correo registrado y el sitio web.</p>
+
+                <h3>4.7. Cómo contactarnos</h3>
+                <dl class="contact-grid">
+                  <dt>Empresa</dt><dd>GEN AI LEGAL S.A.C.S.</dd>
+                  <dt>RUC</dt><dd>20614276534</dd>
+                  <dt>Marca</dt><dd>Comercialo</dd>
+                  <dt>Domicilio</dt><dd>Av. Enrique López Albújar Mza. J Lote 2, Amarilis, Huánuco, Perú</dd>
+                  <dt>Privacidad y derechos ARCO</dt><dd><!--email_off--><a href="mailto:contacto@comercialo.pe">contacto@comercialo.pe</a><!--/email_off--></dd>
+                  <dt>Ventas y soporte</dt><dd><!--email_off--><a href="mailto:contacto@comercialo.pe">contacto@comercialo.pe</a><!--/email_off--></dd>
+                  <dt>WhatsApp</dt><dd><a href="https://wa.me/51935289770" rel="noopener noreferrer">+51 935 289 770</a></dd>
+                </dl>
+              </div>
+            </section>
+
+            <section>
+              <h2 class="section-title"><span class="number">5</span>Confirmación de aceptación</h2>
+              <div class="content-block numbered">
+                <p>Al marcar la casilla de aceptación, pulsar “Acepto” o continuar utilizando la Plataforma, la persona titular declara haber leído y comprendido este documento y otorga su consentimiento libre, previo, expreso, informado e inequívoco para que Comercialo incluya sus datos en sus sistemas y bancos de datos y los trate conforme a las finalidades descritas.</p>
+                <p>También declara conocer su derecho a revocar el consentimiento en cualquier momento mediante los canales del numeral 4.7, sin afectar los tratamientos realizados con anterioridad.</p>
+              </div>
+            </section>
+          </div>
+
+          <footer class="mt-12 border-t border-border pt-8 text-center">
+            <p class="text-xs italic text-muted-foreground">Comercialo © {new Date().getFullYear()} - Todos los derechos reservados.</p>
+          </footer>
+        </article>
+      </div>
+    </main>
+  </div>
+</Layout>
+
+<style>
+  .section-title { display: flex; align-items: center; gap: .75rem; margin-bottom: 1rem; color: hsl(var(--foreground)); font-size: 1.25rem; font-weight: 700; }
+  .number { display: inline-flex; width: 2rem; height: 2rem; flex-shrink: 0; align-items: center; justify-content: center; border-radius: .5rem; background: rgb(0 173 85 / .12); color: #00AD55; font-family: ui-monospace, monospace; font-size: .875rem; }
+  .content-block { font-size: .875rem; line-height: 1.75; }
+  .content-block.numbered { margin-left: 1rem; border-left: 2px solid hsl(var(--border)); padding-left: 1.75rem; }
+  .content-block :global(p + p), .content-block :global(p + ul), .content-block :global(p + ol) { margin-top: 1rem; }
+  .content-block :global(h3) { margin-top: 2rem; margin-bottom: .75rem; color: hsl(var(--foreground)); font-size: 1.05rem; font-weight: 700; }
+  .content-block :global(h4) { margin-top: 1.25rem; margin-bottom: .5rem; color: hsl(var(--foreground)); font-weight: 700; }
+  .content-block :global(ul), .content-block :global(ol) { margin-left: 1.25rem; display: grid; gap: .5rem; }
+  .content-block :global(ul) { list-style: disc; }
+  .content-block :global(ol) { list-style: decimal; }
+  .content-block :global(strong), .content-block :global(a) { color: hsl(var(--foreground)); }
+  .content-block :global(a) { text-decoration: underline; text-decoration-color: #00AD55; text-underline-offset: 3px; }
+  .notice { margin-top: 1.5rem; border-left: 4px solid #00AD55; border-radius: 0 .75rem .75rem 0; background: rgb(0 173 85 / .1); padding: 1rem; color: hsl(var(--foreground)); }
+  .contact-grid { margin-top: 1rem; display: grid; overflow: hidden; border: 1px solid hsl(var(--border)); border-radius: 1rem; }
+  .contact-grid :global(dt), .contact-grid :global(dd) { padding: .75rem 1rem; border-bottom: 1px solid hsl(var(--border)); }
+  .contact-grid :global(dt) { background: rgb(0 173 85 / .1); color: hsl(var(--foreground)); font-weight: 700; }
+  @media (min-width: 640px) { .content-block { font-size: 1rem; } .contact-grid { grid-template-columns: minmax(180px, .8fr) 2fr; } }
+  @media (max-width: 639px) { .content-block.numbered { margin-left: 0; padding-left: 1rem; } }
+</style>
